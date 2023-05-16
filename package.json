@@ -1,5 +1,5 @@
 {
-  "name": "amati-greenskill-education-be",
+  "name": "amati-greenskill-education-api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -30,10 +30,14 @@
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "csv-parse": "^5.3.10",
+    "maskdata": "^1.2.2",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "prisma-pagination": "^0.2.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
+    "snowflake-id": "^1.1.0",
     "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
