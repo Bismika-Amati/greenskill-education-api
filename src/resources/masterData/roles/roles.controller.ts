@@ -21,7 +21,10 @@ import { QueryRoleDto } from './dto/query-role.dto';
 import { ResponseEntity } from 'src/lib/entities';
 import { Prisma } from '@prisma/client';
 
-@Controller('roles')
+@Controller({
+  path: 'master-data/roles',
+  version: ['1.0.0'],
+})
 @ApiTags('roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}

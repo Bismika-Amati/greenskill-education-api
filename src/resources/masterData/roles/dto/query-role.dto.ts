@@ -10,7 +10,7 @@ export class QueryRoleDto {
   @IsOptional()
   page?: number;
 
-  @InArray([5, 15, 25, 50])
+  @InArray([10, 25, 50, 100])
   @IsOptional()
   perPage?: PaginatorLimit;
 }

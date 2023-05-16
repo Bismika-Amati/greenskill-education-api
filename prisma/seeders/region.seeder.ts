@@ -1,5 +1,5 @@
 import { City, District, Province, PrismaClient } from '@prisma/client';
-import { info, log } from 'console';
+import { info } from 'console';
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -52,7 +52,7 @@ export class RegionSeeder implements Seeder {
         content: provinceContent,
         headers: parentHeaders,
       },
-      async (province, error) => {
+      async (province) => {
         if (isNaN(+province.id)) {
           console.log(`NaN id: ${province.id}`);
           return;
@@ -83,7 +83,7 @@ export class RegionSeeder implements Seeder {
         content: cityContent,
         headers: childHeaders,
       },
-      async (city, error) => {
+      async (city) => {
         if (isNaN(+city.id)) {
           console.log(`NaN id: ${city.id}`);
           return;
@@ -116,7 +116,7 @@ export class RegionSeeder implements Seeder {
         content: districtContent,
         headers: childHeaders,
       },
-      async (district, error) => {
+      async (district) => {
         if (isNaN(+district.id)) {
           console.log(`NaN id: ${district.id}`);
           return;

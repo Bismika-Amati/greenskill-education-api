@@ -10,8 +10,8 @@ import { Prisma, Role } from '@prisma/client';
 export class RolesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createRoleDto: CreateRoleDto) {
-    return this.prisma.role.create({ data: createRoleDto });
+  async create(createRoleDto: CreateRoleDto): Promise<Role> {
+    return await this.prisma.role.create({ data: createRoleDto });
   }
 
   async findAll(queryDto: QueryRoleDto): Promise<PaginatedResult<Role>> {

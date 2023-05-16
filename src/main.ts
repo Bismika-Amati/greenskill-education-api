@@ -22,7 +22,6 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Bismika Amati')
     .setDescription('The Bismika Amati API description')
-    .setVersion('0.1')
     .addBearerAuth()
     .build();
 

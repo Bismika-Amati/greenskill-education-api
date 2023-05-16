@@ -8,11 +8,11 @@ export class RoleEntity {
   }
 
   mapper(item: Partial<Role>) {
-    const { id, ...partial } = item;
+    const { id, name } = item;
 
     return {
-      id: id,
-      name: item.name,
+      id,
+      name,
     };
   }
 
