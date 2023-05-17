@@ -3,10 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 
-import { RolesModule } from './resources/masterData/roles/roles.module';
-import { ProvincesModule } from './resources/masterData/regions/provinces/provinces.module';
-import { CitiesModule } from './resources/masterData/regions/cities/cities.module';
-import { DistrictsModule } from './resources/masterData/regions/districts/districts.module';
+import { RolesModule } from './resources/master-data/roles/roles.module';
+import { ProvincesModule } from './resources/master-data/regions/provinces/provinces.module';
+import { CitiesModule } from './resources/master-data/regions/cities/cities.module';
+import { DistrictsModule } from './resources/master-data/regions/districts/districts.module';
+import { SubDistrictsModule } from './resources/master-data/regions/sub-districts/sub-districts.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { DistrictsModule } from './resources/masterData/regions/districts/distri
     ProvincesModule,
     CitiesModule,
     DistrictsModule,
+    SubDistrictsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

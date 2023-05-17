@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { District } from '@prisma/client';
-import { ProvinceEntity } from '../../provinces/entities/province.entity';
+import { CityEntity } from '../../cities/entities/city.entity';
 
 export class DistrictEntity {
   @ApiProperty()
@@ -21,8 +21,8 @@ export class DistrictEntity {
   @ApiProperty({ required: false, nullable: true })
   cityId: string | null;
 
-  @ApiProperty({ required: false, type: ProvinceEntity })
-  city?: ProvinceEntity;
+  @ApiProperty({ required: false, type: CityEntity })
+  city?: CityEntity;
 
   constructor(partial?: Partial<DistrictEntity>) {
     if (!partial) return;
@@ -32,7 +32,7 @@ export class DistrictEntity {
     Object.assign(this, this.mapper(data));
 
     if (city) {
-      this.city = new ProvinceEntity(city);
+      this.city = new CityEntity(city);
     }
   }
 
