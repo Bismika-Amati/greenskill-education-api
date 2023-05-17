@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Seeder } from './interfaces/seeder.interface';
 import { RoleType } from '../../src/lib/enums/index';
-import { randomUUID } from 'crypto';
 
 export class RoleSeeder implements Seeder {
   private readonly prisma: PrismaClient;
@@ -11,11 +10,6 @@ export class RoleSeeder implements Seeder {
   }
 
   async main(): Promise<void> {
-    const role = await this.createRole();
-    console.log(role);
-  }
-
-  async createRole() {
     const roles = Object.values(RoleType);
 
     roles.forEach(async (role) => {
@@ -26,7 +20,6 @@ export class RoleSeeder implements Seeder {
           },
           update: {},
           create: {
-            id: randomUUID(),
             name: role,
           },
         });

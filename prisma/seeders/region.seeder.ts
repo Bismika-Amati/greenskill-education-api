@@ -174,46 +174,46 @@ export class RegionSeeder implements Seeder {
     );
 
     // seed sub district
-    // await this.readCsv<Region>(
-    //   {
-    //     content: fs.readFileSync(
-    //       path.resolve(__dirname, '../files/subDistricts.csv'),
-    //       {
-    //         encoding: 'utf-8',
-    //       },
-    //     ),
-    //     headers: ['id', 'parentId', 'name'],
-    //   },
-    //   async (subDistrict) => {
-    //     try {
-    //       const found = districtIds.find(
-    //         (item) => item.id === subDistrict.parentId,
-    //       );
-    //       if (!found) return;
+    await this.readCsv<Region>(
+      {
+        content: fs.readFileSync(
+          path.resolve(__dirname, '../files/subDistricts.csv'),
+          {
+            encoding: 'utf-8',
+          },
+        ),
+        headers: ['id', 'parentId', 'name'],
+      },
+      async (subDistrict) => {
+        try {
+          const found = districtIds.find(
+            (item) => item.id === subDistrict.parentId,
+          );
+          if (!found) return;
 
-    //       const myUuid = randomUUID();
+          const myUuid = randomUUID();
 
-    //       await prisma.subDistrict.upsert({
-    //         where: { id: subDistrict.id },
-    //         update: {
-    //           id: myUuid,
-    //           name: subDistrict.name,
-    //           districtId: found.uuid,
-    //         },
-    //         create: {
-    //           id: myUuid,
-    //           name: subDistrict.name,
-    //           districtId: found.uuid,
-    //         },
-    //       });
+          await prisma.subDistrict.upsert({
+            where: { id: subDistrict.id },
+            update: {
+              id: myUuid,
+              name: subDistrict.name,
+              districtId: found.uuid,
+            },
+            create: {
+              id: myUuid,
+              name: subDistrict.name,
+              districtId: found.uuid,
+            },
+          });
 
-    //       info(
-    //         `# inserting sub district -- id: ${subDistrict.id}, name ${subDistrict.name}`,
-    //       );
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   },
-    // );
+          info(
+            `# inserting sub district -- id: ${subDistrict.id}, name ${subDistrict.name}`,
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      },
+    );
   }
 }
