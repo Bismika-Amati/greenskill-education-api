@@ -70,7 +70,7 @@ export class CitiesController {
     const city = await this.citiesService.findOne(id);
 
     if (!city) {
-      throw new NotFoundException(`Role with ${id} does not exist.`);
+      throw new NotFoundException(`City with ${id} does not exist.`);
     }
 
     return new ResponseEntity({
@@ -85,7 +85,7 @@ export class CitiesController {
     let city = await this.citiesService.findOne(id);
 
     if (!city) {
-      throw new NotFoundException(`Role with ${id} does not exist.`);
+      throw new NotFoundException(`City with ${id} does not exist.`);
     }
 
     city = await this.citiesService.update(id, updateCityDto);
@@ -102,7 +102,7 @@ export class CitiesController {
     let city = await this.citiesService.findOne(id);
 
     if (!city) {
-      throw new NotFoundException(`Role with ${id} does not exist.`);
+      throw new NotFoundException(`City with ${id} does not exist.`);
     }
 
     city = await this.citiesService.remove(id);
