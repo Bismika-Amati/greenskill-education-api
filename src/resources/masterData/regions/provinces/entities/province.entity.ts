@@ -1,10 +1,28 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Province } from '@prisma/client';
 
 export class ProvinceEntity {
-  constructor(partial?: Partial<Province>) {
-    if (partial) {
-      Object.assign(this, this.mapper(partial));
-    }
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
+
+  @ApiProperty()
+  deletedAt: Date;
+
+  constructor(partial?: Partial<ProvinceEntity>) {
+    if (!partial) return;
+
+    const { ...data } = partial;
+
+    Object.assign(this, this.mapper(data));
   }
 
   mapper(item: Partial<Province>) {

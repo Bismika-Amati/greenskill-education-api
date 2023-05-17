@@ -1,13 +1,31 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '@prisma/client';
 
 export class RoleEntity {
-  constructor(partial?: Partial<Role>) {
-    if (partial) {
-      Object.assign(this, this.mapper(partial));
-    }
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
+
+  @ApiProperty()
+  deletedAt: Date;
+
+  constructor(partial?: Partial<RoleEntity>) {
+    if (!partial) return;
+
+    const { ...data } = partial;
+
+    Object.assign(this, this.mapper(data));
   }
 
-  mapper(item: Partial<Role>) {
+  mapper(item: Partial<RoleEntity>) {
     const { id, name } = item;
 
     return {

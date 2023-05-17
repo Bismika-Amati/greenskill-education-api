@@ -5,8 +5,8 @@ import { RegionSeeder, RoleSeeder } from './seeders';
 const prisma = new PrismaClient();
 
 async function main() {
-  await new RegionSeeder().main();
   await new RoleSeeder().main();
+  await new RegionSeeder().main();
 }
 
 // execute the main function

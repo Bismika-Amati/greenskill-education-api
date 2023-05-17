@@ -1,18 +1,17 @@
-import { City, District, Province, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { info } from 'console';
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Seeder } from './interfaces/seeder.interface';
+import { randomUUID } from 'crypto';
 
 const prisma = new PrismaClient();
 
 type Region = {
-  id: number;
+  id: string;
   name: string;
-  parent_id: string;
-  updated_at: string;
-  deleted_at: string;
+  parentId: string;
 };
 
 type ReadCsvOption = {
@@ -21,179 +20,6 @@ type ReadCsvOption = {
 };
 
 export class RegionSeeder implements Seeder {
-  async main(): Promise<void> {
-    const parentHeaders = [
-      'id',
-      'name',
-      'created_at',
-      'updated_at',
-      'deleted_at',
-    ];
-
-    const childHeaders = [
-      'id',
-      'name',
-      'parent_id',
-      'created_at',
-      'updated_at',
-      'deleted_at',
-    ];
-
-    const provinceCsvFilePath = path.resolve(
-      __dirname,
-      '../files/provinces.csv',
-    );
-    const provinceContent = fs.readFileSync(provinceCsvFilePath, {
-      encoding: 'utf-8',
-    });
-
-    await this.readCsv<Region>(
-      {
-        content: provinceContent,
-        headers: parentHeaders,
-      },
-      async (province) => {
-        if (isNaN(+province.id)) {
-          console.log(`NaN id: ${province.id}`);
-          return;
-        }
-
-        try {
-          info(
-            `# inserting province -- id: ${province.id}, name ${province.name}`,
-          );
-
-          await this.upsertProvince({
-            id: Number(province.id),
-            name: province.name,
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      },
-    );
-
-    const cityCsvFilePath = path.resolve(__dirname, '../files/cities.csv');
-    const cityContent = fs.readFileSync(cityCsvFilePath, {
-      encoding: 'utf-8',
-    });
-
-    await this.readCsv<Region>(
-      {
-        content: cityContent,
-        headers: childHeaders,
-      },
-      async (city) => {
-        if (isNaN(+city.id)) {
-          console.log(`NaN id: ${city.id}`);
-          return;
-        }
-
-        try {
-          info(`# inserting city -- id: ${city.id}, name ${city.name}`);
-
-          await this.upsertCity({
-            id: Number(city.id),
-            name: city.name,
-            parentId: Number(city.parent_id),
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      },
-    );
-
-    const districtCsvFilePath = path.resolve(
-      __dirname,
-      '../files/districts.csv',
-    );
-    const districtContent = fs.readFileSync(districtCsvFilePath, {
-      encoding: 'utf-8',
-    });
-
-    await this.readCsv<Region>(
-      {
-        content: districtContent,
-        headers: childHeaders,
-      },
-      async (district) => {
-        if (isNaN(+district.id)) {
-          console.log(`NaN id: ${district.id}`);
-          return;
-        }
-
-        try {
-          info(
-            `# inserting district -- id: ${district.id}, name ${district.name}`,
-          );
-
-          await this.upsertDistrict({
-            id: Number(district.id),
-            name: district.name,
-            parentId: Number(district.parent_id),
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      },
-    );
-  }
-
-  async upsertProvince(params: {
-    id: number;
-    name: string;
-  }): Promise<Province> {
-    return await prisma.province.upsert({
-      where: { id: params.id },
-      update: {
-        name: params.name,
-      },
-      create: {
-        name: params.name,
-      },
-    });
-  }
-
-  async upsertCity(params: {
-    id: number;
-    name: string;
-    parentId: number;
-  }): Promise<City> {
-    return await prisma.city.upsert({
-      where: { id: params.id },
-      update: {
-        id: params.id,
-        name: params.name,
-        provinceId: params.parentId,
-      },
-      create: {
-        id: params.id,
-        name: params.name,
-        provinceId: params.parentId,
-      },
-    });
-  }
-
-  async upsertDistrict(params: {
-    id: number;
-    name: string;
-    parentId: number;
-  }): Promise<District> {
-    return await prisma.district.upsert({
-      where: { id: params.id },
-      update: {
-        id: params.id,
-        name: params.name,
-        cityId: params.parentId,
-      },
-      create: {
-        id: params.id,
-        name: params.name,
-        cityId: params.parentId,
-      },
-    });
-  }
-
   async readCsv<T>(
     options: ReadCsvOption,
     callback: (item?: T, error?: any) => void,
@@ -211,5 +37,183 @@ export class RegionSeeder implements Seeder {
           });
       },
     );
+  }
+
+  async main(): Promise<void> {
+    const provinceIds: { id: string; uuid: string }[] = [];
+    const cityIds: { id: string; uuid: string; provinceId: string }[] = [];
+    const districtIds: { id: string; uuid: string; cityId: string }[] = [];
+
+    // seed provinces
+    await this.readCsv<Region>(
+      {
+        content: fs.readFileSync(
+          path.resolve(__dirname, '../files/provinces.csv'),
+          {
+            encoding: 'utf-8',
+          },
+        ),
+        headers: ['id', 'name'],
+      },
+      async (province) => {
+        try {
+          const myUuid = randomUUID();
+          provinceIds.push({
+            id: province.id,
+            uuid: myUuid,
+          });
+
+          await prisma.province.upsert({
+            where: { id: province.id },
+            update: {
+              id: myUuid,
+              name: province.name,
+            },
+            create: {
+              id: myUuid,
+              name: province.name,
+            },
+          });
+
+          info(
+            `# inserting province -- id: ${province.id}, name ${province.name}`,
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      },
+    );
+
+    // seed city
+    await this.readCsv<Region>(
+      {
+        content: fs.readFileSync(
+          path.resolve(__dirname, '../files/cities.csv'),
+          {
+            encoding: 'utf-8',
+          },
+        ),
+        headers: ['id', 'parentId', 'name'],
+      },
+      async (city) => {
+        try {
+          const found = provinceIds.find((item) => item.id === city.parentId);
+          if (!found) return;
+
+          const myUuid = randomUUID();
+          cityIds.push({
+            id: city.id,
+            uuid: myUuid,
+            provinceId: found.uuid,
+          });
+
+          await prisma.city.upsert({
+            where: { id: city.id },
+            update: {
+              id: myUuid,
+              name: city.name,
+              provinceId: found.uuid,
+            },
+            create: {
+              id: myUuid,
+              name: city.name,
+              provinceId: found.uuid,
+            },
+          });
+
+          info(`# inserting city -- id: ${city.id}, name ${city.name}`);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+    );
+
+    // seed district
+    await this.readCsv<Region>(
+      {
+        content: fs.readFileSync(
+          path.resolve(__dirname, '../files/districts.csv'),
+          {
+            encoding: 'utf-8',
+          },
+        ),
+        headers: ['id', 'parentId', 'name'],
+      },
+      async (district) => {
+        try {
+          const found = cityIds.find((item) => item.id === district.parentId);
+          if (!found) return;
+
+          const myUuid = randomUUID();
+          districtIds.push({
+            id: district.id,
+            uuid: myUuid,
+            cityId: found.uuid,
+          });
+
+          await prisma.district.upsert({
+            where: { id: district.id },
+            update: {
+              id: myUuid,
+              name: district.name,
+              cityId: found.uuid,
+            },
+            create: {
+              id: myUuid,
+              name: district.name,
+              cityId: found.uuid,
+            },
+          });
+          info(
+            `# inserting district -- id: ${district.id}, name ${district.name}`,
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      },
+    );
+
+    // seed sub district
+    // await this.readCsv<Region>(
+    //   {
+    //     content: fs.readFileSync(
+    //       path.resolve(__dirname, '../files/subDistricts.csv'),
+    //       {
+    //         encoding: 'utf-8',
+    //       },
+    //     ),
+    //     headers: ['id', 'parentId', 'name'],
+    //   },
+    //   async (subDistrict) => {
+    //     try {
+    //       const found = districtIds.find(
+    //         (item) => item.id === subDistrict.parentId,
+    //       );
+    //       if (!found) return;
+
+    //       const myUuid = randomUUID();
+
+    //       await prisma.subDistrict.upsert({
+    //         where: { id: subDistrict.id },
+    //         update: {
+    //           id: myUuid,
+    //           name: subDistrict.name,
+    //           districtId: found.uuid,
+    //         },
+    //         create: {
+    //           id: myUuid,
+    //           name: subDistrict.name,
+    //           districtId: found.uuid,
+    //         },
+    //       });
+
+    //       info(
+    //         `# inserting sub district -- id: ${subDistrict.id}, name ${subDistrict.name}`,
+    //       );
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   },
+    // );
   }
 }

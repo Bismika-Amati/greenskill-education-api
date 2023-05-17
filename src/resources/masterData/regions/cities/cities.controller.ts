@@ -6,43 +6,43 @@ import {
   Patch,
   Param,
   Delete,
-  Query,
-  HttpStatus,
-  NotFoundException,
   BadRequestException,
+  HttpStatus,
+  Query,
+  NotFoundException,
 } from '@nestjs/common';
-import { RolesService } from './roles.service';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
-import { ApiTags } from '@nestjs/swagger';
-import { RoleEntity } from './entities/role.entity';
-import { QueryRoleDto } from './dto/query-role.dto';
+import { CitiesService } from './cities.service';
+import { CreateCityDto } from './dto/create-city.dto';
+import { UpdateCityDto } from './dto/update-city.dto';
+import { CityEntity } from './entities/city.entity';
 import { ResponseEntity } from 'src/lib/entities';
 import { Prisma } from '@prisma/client';
+import { QueryCityDto } from './dto/query-city.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller({
-  path: 'master-data/roles',
+  path: 'master-data/regions/cities',
   version: ['1.0.0'],
 })
-@ApiTags('roles')
-export class RolesController {
-  constructor(private readonly rolesService: RolesService) {}
+@ApiTags('cities')
+export class CitiesController {
+  constructor(private readonly citiesService: CitiesService) {}
 
   @Post()
-  async create(@Body() createRoleDto: CreateRoleDto) {
+  async create(@Body() createCityDto: CreateCityDto) {
     try {
-      const role = await this.rolesService.create(createRoleDto);
+      const city = await this.citiesService.create(createCityDto);
 
       return new ResponseEntity({
         statusCode: HttpStatus.OK,
         message: 'created',
-        data: new RoleEntity(role),
+        data: new CityEntity(city),
       });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
           throw new BadRequestException(
-            'There is a unique constraint violation, a new role cannot be created with this name',
+            'There is a unique constraint violation, a new city cannot be created with this name',
           );
         }
       }
@@ -52,65 +52,65 @@ export class RolesController {
   }
 
   @Get()
-  async findAll(@Query() queryDto: QueryRoleDto) {
-    const roles = await this.rolesService.findAll(queryDto);
+  async findAll(@Query() queryDto: QueryCityDto) {
+    const cities = await this.citiesService.findAll(queryDto);
 
-    const items = new RoleEntity().collection(roles.data);
+    const items = new CityEntity().collection(cities.data);
 
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'success',
       data: items ?? [],
-      meta: roles.meta,
+      meta: cities.meta,
     });
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const role = await this.rolesService.findOne(id);
+    const city = await this.citiesService.findOne(id);
 
-    if (!role) {
+    if (!city) {
       throw new NotFoundException(`Role with ${id} does not exist.`);
     }
 
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'success',
-      data: new RoleEntity(role),
+      data: new CityEntity(city),
     });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    let role = await this.rolesService.findOne(id);
+  async update(@Param('id') id: string, @Body() updateCityDto: UpdateCityDto) {
+    let city = await this.citiesService.findOne(id);
 
-    if (!role) {
+    if (!city) {
       throw new NotFoundException(`Role with ${id} does not exist.`);
     }
 
-    role = await this.rolesService.update(id, updateRoleDto);
+    city = await this.citiesService.update(id, updateCityDto);
 
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'updated',
-      data: new RoleEntity(role),
+      data: new CityEntity(city),
     });
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    let role = await this.rolesService.findOne(id);
+    let city = await this.citiesService.findOne(id);
 
-    if (!role) {
+    if (!city) {
       throw new NotFoundException(`Role with ${id} does not exist.`);
     }
 
-    role = await this.rolesService.remove(id);
+    city = await this.citiesService.remove(id);
 
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'deleted',
-      data: new RoleEntity(role),
+      data: new CityEntity(city),
     });
   }
 }

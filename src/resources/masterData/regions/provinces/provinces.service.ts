@@ -32,14 +32,14 @@ export class ProvincesService {
     );
   }
 
-  async findOne(id: number): Promise<Province | null> {
+  async findOne(id: string): Promise<Province | null> {
     return await this.prisma.province.findUnique({
       where: { id },
     });
   }
 
   async update(
-    id: number,
+    id: string,
     updateProvinceDto: UpdateProvinceDto,
   ): Promise<Province> {
     return await this.prisma.province.update({
@@ -48,7 +48,7 @@ export class ProvincesService {
     });
   }
 
-  async remove(id: number): Promise<Province> {
+  async remove(id: string): Promise<Province> {
     return await this.prisma.province.update({
       where: { id },
       data: {

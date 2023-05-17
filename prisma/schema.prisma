@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Role {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -19,31 +19,42 @@ model Role {
 }
 
 model Province {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String    @db.VarChar(100)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
-  Cities    City[]
+  cities    City[]
 }
 
 model City {
-  id         Int        @id @default(autoincrement())
+  id         String     @id @default(uuid())
   name       String     @db.VarChar(100)
-  provinceId Int
+  provinceId String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   deletedAt  DateTime?
-  Province   Province   @relation(fields: [provinceId], references: [id])
-  Districts  District[]
+  province   Province   @relation(fields: [provinceId], references: [id])
+  districts  District[]
 }
 
 model District {
-  id        Int       @id @default(autoincrement())
-  name      String    @db.VarChar(100)
-  cityId    Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  City      City      @relation(fields: [cityId], references: [id])
+  id          String        @id @default(uuid())
+  name        String        @db.VarChar(100)
+  cityId      String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  city        City          @relation(fields: [cityId], references: [id])
+  subDistrict SubDistrict[]
+}
+
+model SubDistrict {
+  id         String    @id @default(uuid())
+  name       String    @db.VarChar(100)
+  districtId String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  districts  District  @relation(fields: [districtId], references: [id])
 }

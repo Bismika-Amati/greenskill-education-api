@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  ParseIntPipe,
   Query,
   HttpStatus,
   NotFoundException,
@@ -67,7 +66,7 @@ export class ProvincesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(@Param('id') id: string) {
     const province = await this.provincesService.findOne(id);
 
     if (!province) {
@@ -83,7 +82,7 @@ export class ProvincesController {
 
   @Patch(':id')
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
     @Body() updateProvinceDto: UpdateProvinceDto,
   ) {
     let province = await this.provincesService.findOne(id);
@@ -102,7 +101,7 @@ export class ProvincesController {
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
+  async remove(@Param('id') id: string) {
     let province = await this.provincesService.findOne(id);
 
     if (!province) {

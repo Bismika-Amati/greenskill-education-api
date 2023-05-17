@@ -27,20 +27,20 @@ export class RolesService {
     });
   }
 
-  async findOne(id: number): Promise<Role | null> {
+  async findOne(id: string): Promise<Role | null> {
     return await this.prisma.role.findUnique({
       where: { id },
     });
   }
 
-  async update(id: number, updateRoleDto: UpdateRoleDto): Promise<Role> {
+  async update(id: string, updateRoleDto: UpdateRoleDto): Promise<Role> {
     return await this.prisma.role.update({
       where: { id },
       data: updateRoleDto,
     });
   }
 
-  async remove(id: number): Promise<Role> {
+  async remove(id: string): Promise<Role> {
     return await this.prisma.role.update({
       where: { id },
       data: {
