@@ -1,2 +1,2 @@
 export * from './region.seeder';
-export * from './role.seeder';
+export * from './user.seeder';

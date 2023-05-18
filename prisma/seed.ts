@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client';
-import { RegionSeeder, RoleSeeder } from './seeders';
+import { RegionSeeder, UserSeeder } from './seeders';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
 
 async function main() {
-  await new RoleSeeder().main();
-  await new RegionSeeder().main();
+  // await new RegionSeeder().main();
+  await new UserSeeder().main();
 }
 
 // execute the main function

@@ -16,45 +16,283 @@ model Role {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+  User      User[]
 }
 
 model Province {
   id        String    @id @default(uuid())
-  name      String    @db.VarChar(100)
+  name      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
-  cities    City[]
+  Village   Village[]
+  User      User[]
+  City      City[]
 }
 
 model City {
   id         String     @id @default(uuid())
-  name       String     @db.VarChar(100)
+  name       String
   provinceId String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   deletedAt  DateTime?
   province   Province   @relation(fields: [provinceId], references: [id])
-  districts  District[]
+  Districts  District[]
+  Village    Village[]
+  User       User[]
 }
 
 model District {
   id          String        @id @default(uuid())
-  name        String        @db.VarChar(100)
+  name        String
   cityId      String
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   deletedAt   DateTime?
   city        City          @relation(fields: [cityId], references: [id])
-  subDistrict SubDistrict[]
+  Village     Village[]
+  User        User[]
+  SubDistrict SubDistrict[]
 }
 
 model SubDistrict {
   id         String    @id @default(uuid())
-  name       String    @db.VarChar(100)
+  name       String
   districtId String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime?
-  districts  District  @relation(fields: [districtId], references: [id])
+  Districts  District  @relation(fields: [districtId], references: [id])
+  Village    Village[]
+  User       User[]
+}
+
+model User {
+  id            String         @id @default(uuid())
+  fullname      String
+  email         String?        @unique
+  password      String
+  phoneNumber   Int?           @unique
+  photo         String?
+  roleId        String
+  provinceId    String?        @unique
+  cityId        String?
+  districtId    String?
+  subDistrictId String?
+  postcode      String?
+  address       String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+  role          Role           @relation(fields: [roleId], references: [id])
+  province      Province?      @relation(fields: [provinceId], references: [id])
+  city          City?          @relation(fields: [cityId], references: [id])
+  district      District?      @relation(fields: [districtId], references: [id])
+  subDistrict   SubDistrict?   @relation(fields: [subDistrictId], references: [id])
+  Village       Village[]
+  UserCourse    UserCourse[]
+  DoneModule    DoneModule[]
+  Forum         Forum[]
+  ForumComment  ForumComment[]
+}
+
+model Village {
+  id               String             @id @default(uuid())
+  name             String
+  description      String?            @db.Text
+  provinceId       String
+  cityId           String
+  districtId       String
+  subDistrictId    String
+  postcode         String
+  address          String
+  latlong          String
+  picId            String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  pic              User               @relation(fields: [picId], references: [id])
+  province         Province           @relation(fields: [provinceId], references: [id])
+  city             City               @relation(fields: [cityId], references: [id])
+  district         District           @relation(fields: [districtId], references: [id])
+  subDistrict      SubDistrict        @relation(fields: [subDistrictId], references: [id])
+  VillagePicture   VillagePicture[]
+  ProblemStatement ProblemStatement[]
+}
+
+model VillagePicture {
+  id        String    @id @default(uuid())
+  photo     String
+  villageId String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  village   Village   @relation(fields: [villageId], references: [id])
+}
+
+model ProblemStatement {
+  id                  String                @id @default(uuid())
+  topic               String
+  description         String?               @db.Text
+  villageId           String
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  deletedAt           DateTime?
+  village             Village               @relation(fields: [villageId], references: [id])
+  CustomerSegment     CustomerSegment[]
+  EarlyAdopter        EarlyAdopter[]
+  InterviewRecap      InterviewRecap[]
+  ExistingAlternative ExistingAlternative[]
+}
+
+model CustomerSegment {
+  id                 String           @id @default(uuid())
+  title              String
+  description        String?          @db.Text
+  problemStatementId String
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  deletedAt          DateTime?
+  problemStatement   ProblemStatement @relation(fields: [problemStatementId], references: [id])
+}
+
+model EarlyAdopter {
+  id                 String           @id @default(uuid())
+  title              String
+  description        String?          @db.Text
+  problemStatementId String
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  deletedAt          DateTime?
+  problemStatement   ProblemStatement @relation(fields: [problemStatementId], references: [id])
+}
+
+model InterviewRecap {
+  id                 String           @id @default(uuid())
+  characteristic     String?          @db.Text
+  interviewDate      DateTime
+  evidenceVideo      String?
+  evidencetext       String?
+  problemStatementId String
+  intervieweeId      String
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  deletedAt          DateTime?
+  problemStatement   ProblemStatement @relation(fields: [problemStatementId], references: [id])
+  Problem            Problem[]
+}
+
+model Problem {
+  id               String         @id @default(uuid())
+  title            String
+  description      String?        @db.Text
+  interviewRecapId String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  deletedAt        DateTime?
+  interviewRecap   InterviewRecap @relation(fields: [interviewRecapId], references: [id])
+}
+
+model ExistingAlternative {
+  id                 String           @id @default(uuid())
+  title              String
+  description        String?          @db.Text
+  problemStatementId String
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  deletedAt          DateTime?
+  problemStatement   ProblemStatement @relation(fields: [problemStatementId], references: [id])
+}
+
+model Course {
+  id                 String       @id @default(uuid())
+  title              String
+  description        String?      @db.Text
+  amount             Decimal
+  photo              String?
+  estimateCompleated Int
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  deletedAt          DateTime?
+  UserCourse         UserCourse[]
+  SubModule          SubModule[]
+  Forum              Forum[]
+}
+
+model UserCourse {
+  id         String    @id @default(uuid())
+  rating     Int?
+  feedback   String?
+  experience String?   @db.Text
+  userId     String
+  courseId   String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  user       User      @relation(fields: [userId], references: [id])
+  course     Course    @relation(fields: [courseId], references: [id])
+}
+
+model SubModule {
+  id         String       @id @default(uuid())
+  number     Int
+  title      String
+  video      String?
+  article    String?      @db.Text
+  photo      String?
+  courseId   String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  deletedAt  DateTime?
+  course     Course       @relation(fields: [courseId], references: [id])
+  DoneModule DoneModule[]
+}
+
+model DoneModule {
+  id          String    @id @default(uuid())
+  userId      String
+  subModuleId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  user        User      @relation(fields: [userId], references: [id])
+  subModule   SubModule @relation(fields: [subModuleId], references: [id])
+}
+
+model Forum {
+  id           String         @id @default(uuid())
+  title        String
+  description  String
+  userId       String
+  courseId     String
+  forumTypeId  String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+  user         User           @relation(fields: [userId], references: [id])
+  course       Course         @relation(fields: [courseId], references: [id])
+  forumType    ForumType      @relation(fields: [forumTypeId], references: [id])
+  ForumComment ForumComment[]
+}
+
+model ForumType {
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  Forum     Forum[]
+}
+
+model ForumComment {
+  id          String    @id @default(uuid())
+  description String    @db.Text
+  forumId     String
+  userId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  forum       Forum     @relation(fields: [forumId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
 }
