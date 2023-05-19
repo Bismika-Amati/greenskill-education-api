@@ -8,6 +8,8 @@ import { ProvincesModule } from './resources/master-data/regions/provinces/provi
 import { CitiesModule } from './resources/master-data/regions/cities/cities.module';
 import { DistrictsModule } from './resources/master-data/regions/districts/districts.module';
 import { SubDistrictsModule } from './resources/master-data/regions/sub-districts/sub-districts.module';
+import { AuthModule } from './resources/auth/auth.module';
+import { UsersModule } from './resources/master-data/users/users.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { SubDistrictsModule } from './resources/master-data/regions/sub-district
     CitiesModule,
     DistrictsModule,
     SubDistrictsModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

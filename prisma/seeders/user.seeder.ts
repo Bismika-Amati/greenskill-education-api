@@ -1,10 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { Seeder } from './interfaces/seeder.interface';
-import * as bcrypt from 'bcrypt';
-import { RoleType } from '../../src/lib/enums';
 import { info } from 'console';
-
-const roundsOfHashing = 10;
+import { Seeder } from './interfaces/seeder.interface';
+import { RoleType } from '../../src/lib/enums';
+import { hashPassword } from '../../src/lib/helper';
 
 export class UserSeeder implements Seeder {
   private readonly prisma: PrismaClient;
@@ -32,7 +30,7 @@ export class UserSeeder implements Seeder {
     });
 
     // seed users
-    const passwordAdmin = await bcrypt.hash('rahasia123', roundsOfHashing);
+    const passwordAdmin = await hashPassword('rahasia123');
     const adminRole = await this.prisma.role.findUnique({
       where: { name: RoleType.ADMIN },
     });
