@@ -1,24 +1,22 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
   HttpStatus,
-  NotFoundException,
   BadRequestException,
+  Get,
+  Query,
+  Param,
+  NotFoundException,
+  Patch,
+  Delete,
 } from '@nestjs/common';
-import { RolesService } from './roles.service';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { RoleEntity } from './entities/role.entity';
-import { QueryRoleDto } from './dto/query-role.dto';
-import { ResponseEntity } from 'src/lib/entities';
 import { Prisma } from '@prisma/client';
+import { ResponseEntity } from 'src/lib/entities';
+import { CreateRoleDto, QueryRoleDto, UpdateRoleDto } from './dto';
+import { RoleEntity } from './entities';
+import { RolesService } from './roles.service';
 
 @Controller({
   path: 'master-data/roles',

@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { QueryRoleDto } from './dto/query-role.dto';
+import { Role, Prisma } from '@prisma/client';
 import { PaginatedResult, createPaginator } from 'prisma-pagination';
-import { Prisma, Role } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateRoleDto, QueryRoleDto, UpdateRoleDto } from './dto';
 
 @Injectable()
 export class RolesService {
@@ -22,8 +20,13 @@ export class RolesService {
 
     return await paginate<Role, Prisma.RoleFindManyArgs>(this.prisma.role, {
       where: {
+        name: {
+          contains: queryDto.search,
+          mode: 'insensitive',
+        },
         deletedAt: null,
       },
+      orderBy: queryDto.getOrderBy,
     });
   }
 

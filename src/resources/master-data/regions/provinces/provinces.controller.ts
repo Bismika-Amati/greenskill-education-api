@@ -1,24 +1,22 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
   HttpStatus,
-  NotFoundException,
   BadRequestException,
+  Get,
+  Query,
+  Param,
+  NotFoundException,
+  Patch,
+  Delete,
 } from '@nestjs/common';
-import { ProvincesService } from './provinces.service';
-import { CreateProvinceDto } from './dto/create-province.dto';
-import { UpdateProvinceDto } from './dto/update-province.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { ProvinceEntity } from './entities/province.entity';
-import { QueryProvinceDto } from './dto/query-province.dto';
-import { ResponseEntity } from 'src/lib/entities';
 import { Prisma } from '@prisma/client';
+import { ResponseEntity } from 'src/lib/entities';
+import { CreateProvinceDto, QueryProvinceDto, UpdateProvinceDto } from './dto';
+import { ProvinceEntity } from './entities';
+import { ProvincesService } from './provinces.service';
 
 @Controller({
   path: 'master-data/regions/provinces',

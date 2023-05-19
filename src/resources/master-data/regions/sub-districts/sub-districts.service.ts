@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSubDistrictDto } from './dto/create-sub-district.dto';
-import { UpdateSubDistrictDto } from './dto/update-sub-district.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { QuerySubDistrictDto } from './dto/query-sub-district.dto';
+import { SubDistrict, Prisma } from '@prisma/client';
 import { PaginatedResult, createPaginator } from 'prisma-pagination';
-import { Prisma, SubDistrict } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import {
+  CreateSubDistrictDto,
+  QuerySubDistrictDto,
+  UpdateSubDistrictDto,
+} from './dto';
 
 @Injectable()
 export class SubDistrictsService {
@@ -28,8 +30,13 @@ export class SubDistrictsService {
       this.prisma.subDistrict,
       {
         where: {
+          name: {
+            contains: queryDto.search,
+            mode: 'insensitive',
+          },
           deletedAt: null,
         },
+        orderBy: queryDto.getOrderBy,
       },
     );
   }
@@ -37,9 +44,6 @@ export class SubDistrictsService {
   async findOne(id: string): Promise<SubDistrict | null> {
     return await this.prisma.subDistrict.findUnique({
       where: { id },
-      include: {
-        districts: true,
-      },
     });
   }
 

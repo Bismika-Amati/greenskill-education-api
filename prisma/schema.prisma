@@ -63,7 +63,7 @@ model SubDistrict {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime?
-  Districts  District  @relation(fields: [districtId], references: [id])
+  districts  District  @relation(fields: [districtId], references: [id])
   Village    Village[]
   User       User[]
 }

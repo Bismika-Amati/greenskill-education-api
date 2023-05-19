@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDistrictDto } from './dto/create-district.dto';
-import { UpdateDistrictDto } from './dto/update-district.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma, District } from '@prisma/client';
+import { District, Prisma } from '@prisma/client';
 import { PaginatedResult, createPaginator } from 'prisma-pagination';
-import { QueryDistrictDto } from './dto/query-district.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateDistrictDto, QueryDistrictDto, UpdateDistrictDto } from './dto';
 
 @Injectable()
 export class DistrictsService {
@@ -26,8 +24,13 @@ export class DistrictsService {
       this.prisma.district,
       {
         where: {
+          name: {
+            contains: queryDto.search,
+            mode: 'insensitive',
+          },
           deletedAt: null,
         },
+        orderBy: queryDto.getOrderBy,
       },
     );
   }

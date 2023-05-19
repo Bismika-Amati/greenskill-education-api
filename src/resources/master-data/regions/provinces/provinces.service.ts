@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProvinceDto } from './dto/create-province.dto';
-import { UpdateProvinceDto } from './dto/update-province.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma, Province } from '@prisma/client';
+import { Province, Prisma } from '@prisma/client';
 import { PaginatedResult, createPaginator } from 'prisma-pagination';
-import { QueryProvinceDto } from './dto/query-province.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateProvinceDto, QueryProvinceDto, UpdateProvinceDto } from './dto';
 
 @Injectable()
 export class ProvincesService {
@@ -26,8 +24,13 @@ export class ProvincesService {
       this.prisma.province,
       {
         where: {
+          name: {
+            contains: queryDto.search,
+            mode: 'insensitive',
+          },
           deletedAt: null,
         },
+        orderBy: queryDto.getOrderBy,
       },
     );
   }

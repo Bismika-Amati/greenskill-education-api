@@ -1,24 +1,22 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
-  BadRequestException,
   HttpStatus,
+  BadRequestException,
+  Get,
   Query,
+  Param,
   NotFoundException,
+  Patch,
+  Delete,
 } from '@nestjs/common';
-import { CitiesService } from './cities.service';
-import { CreateCityDto } from './dto/create-city.dto';
-import { UpdateCityDto } from './dto/update-city.dto';
-import { CityEntity } from './entities/city.entity';
-import { ResponseEntity } from 'src/lib/entities';
-import { Prisma } from '@prisma/client';
-import { QueryCityDto } from './dto/query-city.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
+import { ResponseEntity } from 'src/lib/entities';
+import { CitiesService } from './cities.service';
+import { CreateCityDto, QueryCityDto, UpdateCityDto } from './dto';
+import { CityEntity } from './entities';
 
 @Controller({
   path: 'master-data/regions/cities',

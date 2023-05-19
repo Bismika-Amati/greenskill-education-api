@@ -1,24 +1,26 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
   HttpStatus,
   BadRequestException,
+  Get,
   Query,
+  Param,
   NotFoundException,
+  Patch,
+  Delete,
 } from '@nestjs/common';
-import { SubDistrictsService } from './sub-districts.service';
-import { CreateSubDistrictDto } from './dto/create-sub-district.dto';
-import { UpdateSubDistrictDto } from './dto/update-sub-district.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { ResponseEntity } from 'src/lib/entities';
-import { SubDistrictEntity } from './entities/sub-district.entity';
 import { Prisma } from '@prisma/client';
-import { QuerySubDistrictDto } from './dto/query-sub-district.dto';
+import { ResponseEntity } from 'src/lib/entities';
+import {
+  CreateSubDistrictDto,
+  QuerySubDistrictDto,
+  UpdateSubDistrictDto,
+} from './dto';
+import { SubDistrictEntity } from './entities';
+import { SubDistrictsService } from './sub-districts.service';
 
 @Controller({
   path: 'master-data/regions/sub-districts',

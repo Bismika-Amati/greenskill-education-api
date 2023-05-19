@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCityDto } from './dto/create-city.dto';
-import { UpdateCityDto } from './dto/update-city.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma, City } from '@prisma/client';
+import { City, Prisma } from '@prisma/client';
 import { PaginatedResult, createPaginator } from 'prisma-pagination';
-import { QueryCityDto } from './dto/query-city.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateCityDto, QueryCityDto, UpdateCityDto } from './dto';
 
 @Injectable()
 export class CitiesService {
@@ -22,8 +20,13 @@ export class CitiesService {
 
     return await paginate<City, Prisma.CityFindManyArgs>(this.prisma.city, {
       where: {
+        name: {
+          contains: queryDto.search,
+          mode: 'insensitive',
+        },
         deletedAt: null,
       },
+      orderBy: queryDto.getOrderBy,
     });
   }
 
