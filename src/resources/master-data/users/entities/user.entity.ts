@@ -16,7 +16,7 @@ export class UserEntity {
   email: string;
 
   @ApiProperty()
-  phoneNumber?: number;
+  phoneNumber?: string;
 
   @ApiProperty()
   photo?: string;

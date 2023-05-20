@@ -20,7 +20,7 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  phoneNumber: number;
+  phoneNumber: string;
 
   @IsString()
   @ApiProperty()

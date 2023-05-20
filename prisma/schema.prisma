@@ -73,7 +73,7 @@ model User {
   fullname      String
   email         String         @unique
   password      String
-  phoneNumber   BigInt?        @unique
+  phoneNumber   String?        @unique @db.VarChar(15)
   photo         String?
   roleId        String
   provinceId    String?        @unique
