@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgres://bismika_usr:rahasia123@34.101.220.5:5432/bismika-prod?pool_timeout=0"
 }
 
 model Role {
