@@ -26,7 +26,7 @@ export class UserSeeder implements Seeder {
     ]);
 
     roles.forEach((role) => {
-      info(`# inserting sub district -- id: ${role.id}, name ${role.name}`);
+      info(`# inserting role -- id: ${role.id}, name ${role.name}`);
     });
 
     // seed users
@@ -47,6 +47,6 @@ export class UserSeeder implements Seeder {
         roleId: adminRole.id,
       },
     });
-    info(`# inserting sub district -- id: ${admin.id}, name ${admin.fullname}`);
+    info(`# inserting user -- id: ${admin.id}, name ${admin.fullname}`);
   }
 }
