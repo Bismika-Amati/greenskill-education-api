@@ -24,7 +24,6 @@ export class RolesService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
-        deletedAt: null,
       },
       orderBy: queryDto.getOrderBy,
     });
@@ -44,11 +43,8 @@ export class RolesService {
   }
 
   async remove(id: string): Promise<Role> {
-    return await this.prisma.role.update({
+    return await this.prisma.role.delete({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-      },
     });
   }
 }
