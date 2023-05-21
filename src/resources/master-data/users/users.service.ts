@@ -31,7 +31,7 @@ export class UsersService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
-        deletedAt: null,
+        
       },
       orderBy: queryDto.getOrderBy,
     });

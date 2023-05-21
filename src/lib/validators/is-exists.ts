@@ -33,7 +33,6 @@ export class IsExistsConstraint implements ValidatorConstraintInterface {
   async query(model, field, value): Promise<boolean> {
     const exists = await this.prisma[model].findFirst({
       where: {
-        deletedAt: null,
         [field]: value,
       },
     });

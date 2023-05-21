@@ -34,7 +34,7 @@ export class SubDistrictsService {
             contains: queryDto.search,
             mode: 'insensitive',
           },
-          deletedAt: null,
+          
         },
         orderBy: queryDto.getOrderBy,
       },
