@@ -17,4 +17,10 @@ export class AuthController {
   login(@Body() { email, password }: LoginDto) {
     return this.authService.login(email, password);
   }
+
+  @Post('login-by-role')
+  @ApiOkResponse({ type: AuthEntity })
+  loginByRole(@Body() params: LoginDto) {
+    return this.authService.loginByRole(params);
+  }
 }

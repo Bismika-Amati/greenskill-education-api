@@ -24,7 +24,6 @@ export class UserSeeder implements Seeder {
         });
       }),
     ]);
-
     roles.forEach((role) => {
       info(`# inserting role -- id: ${role.id}, name ${role.name}`);
     });
@@ -48,5 +47,22 @@ export class UserSeeder implements Seeder {
       },
     });
     info(`# inserting user -- id: ${admin.id}, name ${admin.fullname}`);
+
+    const studentRole = await this.prisma.role.findUnique({
+      where: { name: RoleType.STUDENT },
+    });
+    const student = await this.prisma.user.upsert({
+      where: {
+        email: 'admin@admin.com',
+      },
+      update: {},
+      create: {
+        email: 'admin@admin.com',
+        fullname: 'Admin',
+        password: passwordAdmin,
+        roleId: studentRole.id,
+      },
+    });
+    info(`# inserting user -- id: ${student.id}, name ${student.fullname}`);
   }
 }

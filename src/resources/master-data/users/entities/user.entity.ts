@@ -21,7 +21,7 @@ export class UserEntity {
   @ApiProperty()
   photo?: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: true, nullable: false })
   roleId: string;
 
   @ApiProperty({ required: false, nullable: true })

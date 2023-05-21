@@ -1,6 +1,6 @@
 export const RoleType = {
   ADMIN: 'admin',
-  COLLEGE: 'college',
+  STUDENT: 'student',
   PIC_VILLAGE: 'pic village',
 };
 

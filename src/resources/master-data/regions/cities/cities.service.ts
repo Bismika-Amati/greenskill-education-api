@@ -24,7 +24,6 @@ export class CitiesService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
-        
       },
       orderBy: queryDto.getOrderBy,
     });

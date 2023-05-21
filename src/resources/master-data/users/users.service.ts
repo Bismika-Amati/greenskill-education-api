@@ -31,7 +31,6 @@ export class UsersService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
-        
       },
       orderBy: queryDto.getOrderBy,
     });
