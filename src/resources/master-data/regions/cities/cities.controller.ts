@@ -10,13 +10,15 @@ import {
   NotFoundException,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 import { ResponseEntity } from 'src/lib/entities';
 import { CitiesService } from './cities.service';
 import { CreateCityDto, QueryCityDto, UpdateCityDto } from './dto';
 import { CityEntity } from './entities';
+import { JwtAuthGuard } from 'src/resources/auth/jwt-auth.guard';
 
 @Controller({
   path: 'master-data/regions/cities',
@@ -27,6 +29,8 @@ export class CitiesController {
   constructor(private readonly citiesService: CitiesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async create(@Body() createCityDto: CreateCityDto) {
     try {
       const city = await this.citiesService.create(createCityDto);
@@ -79,6 +83,8 @@ export class CitiesController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async update(@Param('id') id: string, @Body() updateCityDto: UpdateCityDto) {
     let city = await this.citiesService.findOne(id);
 
@@ -96,6 +102,8 @@ export class CitiesController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async remove(@Param('id') id: string) {
     let city = await this.citiesService.findOne(id);
 

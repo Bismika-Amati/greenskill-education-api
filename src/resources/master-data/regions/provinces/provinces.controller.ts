@@ -10,13 +10,15 @@ import {
   NotFoundException,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 import { ResponseEntity } from 'src/lib/entities';
 import { CreateProvinceDto, QueryProvinceDto, UpdateProvinceDto } from './dto';
 import { ProvinceEntity } from './entities';
 import { ProvincesService } from './provinces.service';
+import { JwtAuthGuard } from 'src/resources/auth/jwt-auth.guard';
 
 @Controller({
   path: 'master-data/regions/provinces',
@@ -27,6 +29,8 @@ export class ProvincesController {
   constructor(private readonly provincesService: ProvincesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async create(@Body() createProvinceDto: CreateProvinceDto) {
     try {
       const province = await this.provincesService.create(createProvinceDto);
@@ -79,6 +83,8 @@ export class ProvincesController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async update(
     @Param('id') id: string,
     @Body() updateProvinceDto: UpdateProvinceDto,
@@ -99,6 +105,8 @@ export class ProvincesController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async remove(@Param('id') id: string) {
     let province = await this.provincesService.findOne(id);
 

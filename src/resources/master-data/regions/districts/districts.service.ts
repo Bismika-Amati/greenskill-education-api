@@ -28,7 +28,6 @@ export class DistrictsService {
             contains: queryDto.search,
             mode: 'insensitive',
           },
-          
         },
         orderBy: queryDto.getOrderBy,
       },

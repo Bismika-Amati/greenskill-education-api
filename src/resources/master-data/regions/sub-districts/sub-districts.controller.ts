@@ -10,8 +10,9 @@ import {
   NotFoundException,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 import { ResponseEntity } from 'src/lib/entities';
 import {
@@ -21,6 +22,7 @@ import {
 } from './dto';
 import { SubDistrictEntity } from './entities';
 import { SubDistrictsService } from './sub-districts.service';
+import { JwtAuthGuard } from 'src/resources/auth/jwt-auth.guard';
 
 @Controller({
   path: 'master-data/regions/sub-districts',
@@ -31,6 +33,8 @@ export class SubDistrictsController {
   constructor(private readonly subDistrictsService: SubDistrictsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async create(@Body() createSubDistrictDto: CreateSubDistrictDto) {
     try {
       const district = await this.subDistrictsService.create(
@@ -85,6 +89,8 @@ export class SubDistrictsController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async update(
     @Param('id') id: string,
     @Body() updateSubDistrictDto: UpdateSubDistrictDto,
@@ -108,6 +114,8 @@ export class SubDistrictsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async remove(@Param('id') id: string) {
     let subDistrict = await this.subDistrictsService.findOne(id);
 

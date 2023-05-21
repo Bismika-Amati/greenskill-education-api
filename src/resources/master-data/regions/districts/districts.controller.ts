@@ -10,13 +10,15 @@ import {
   NotFoundException,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 import { ResponseEntity } from 'src/lib/entities';
 import { DistrictsService } from './districts.service';
 import { CreateDistrictDto, QueryDistrictDto, UpdateDistrictDto } from './dto';
 import { DistrictEntity } from './entities';
+import { JwtAuthGuard } from 'src/resources/auth/jwt-auth.guard';
 
 @Controller({
   path: 'master-data/regions/districts',
@@ -27,6 +29,8 @@ export class DistrictsController {
   constructor(private readonly districtsService: DistrictsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async create(@Body() createDistrictDto: CreateDistrictDto) {
     try {
       const district = await this.districtsService.create(createDistrictDto);
@@ -79,6 +83,8 @@ export class DistrictsController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async update(
     @Param('id') id: string,
     @Body() updateDistrictDto: UpdateDistrictDto,
@@ -99,6 +105,8 @@ export class DistrictsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async remove(@Param('id') id: string) {
     let district = await this.districtsService.findOne(id);
 

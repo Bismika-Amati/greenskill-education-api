@@ -12,8 +12,4 @@ export class LoginDto {
   @MinLength(6)
   @ApiProperty()
   password: string;
-
-  @IsString()
-  @ApiProperty()
-  role?: string;
 }

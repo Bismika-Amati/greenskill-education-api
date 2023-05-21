@@ -28,7 +28,6 @@ export class ProvincesService {
             contains: queryDto.search,
             mode: 'insensitive',
           },
-          
         },
         orderBy: queryDto.getOrderBy,
       },
