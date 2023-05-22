@@ -51,11 +51,8 @@ export class ProvincesService {
   }
 
   async remove(id: string): Promise<Province> {
-    return await this.prisma.province.update({
+    return await this.prisma.province.delete({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-      },
     });
   }
 }

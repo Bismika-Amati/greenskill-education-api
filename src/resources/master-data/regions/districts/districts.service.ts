@@ -55,11 +55,8 @@ export class DistrictsService {
   }
 
   async remove(id: string): Promise<District> {
-    return await this.prisma.district.update({
+    return await this.prisma.district.delete({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-      },
     });
   }
 }

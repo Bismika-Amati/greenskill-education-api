@@ -58,11 +58,8 @@ export class SubDistrictsService {
   }
 
   async remove(id: string): Promise<SubDistrict> {
-    return await this.prisma.subDistrict.update({
+    return await this.prisma.subDistrict.delete({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-      },
     });
   }
 }

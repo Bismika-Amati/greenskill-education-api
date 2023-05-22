@@ -12,6 +12,7 @@ import { AuthModule } from './resources/auth/auth.module';
 import { UsersModule } from './resources/master-data/users/users.module';
 import { VillagesModule } from './resources/master-data/villages/villages.module';
 import { ProblemStatementsModule } from './resources/master-data/problem-statements/problem-statements.module';
+import { CustomerSegmentsModule } from './resources/master-data/customer-segments/customer-segments.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ProblemStatementsModule } from './resources/master-data/problem-stateme
     UsersModule,
     VillagesModule,
     ProblemStatementsModule,
+    CustomerSegmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

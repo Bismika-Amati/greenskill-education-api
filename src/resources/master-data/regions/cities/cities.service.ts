@@ -47,11 +47,8 @@ export class CitiesService {
   }
 
   async remove(id: string): Promise<City> {
-    return await this.prisma.city.update({
+    return await this.prisma.city.delete({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-      },
     });
   }
 }

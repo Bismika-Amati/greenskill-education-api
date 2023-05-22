@@ -132,7 +132,9 @@ export class ProblemStatementsController {
     let problemStatement = await this.problemStatementsService.findOne(id);
 
     if (!problemStatement) {
-      throw new NotFoundException(`City with ${id} does not exist.`);
+      throw new NotFoundException(
+        `Problem Statement with ${id} does not exist.`,
+      );
     }
 
     problemStatement = await this.problemStatementsService.remove(id);
