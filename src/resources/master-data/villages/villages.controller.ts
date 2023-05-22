@@ -46,7 +46,7 @@ export class VillagesController {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
           throw new BadRequestException(
-            'There is a unique constraint violation, a new user cannot be created with this name',
+            'There is a unique constraint violation, a new village cannot be created with this name',
           );
         }
       }

@@ -36,11 +36,11 @@ export class UserSeeder implements Seeder {
 
     const admin = await this.prisma.user.upsert({
       where: {
-        email: 'admin@bismika.com',
+        email: 'admin@amati.com',
       },
       update: {},
       create: {
-        email: 'admin@bismika.com',
+        email: 'admin@amati.com',
         fullname: 'Admin',
         password: passwordAdmin,
         roleId: adminRole.id,
@@ -53,11 +53,11 @@ export class UserSeeder implements Seeder {
     });
     const student = await this.prisma.user.upsert({
       where: {
-        email: 'student@bismika.com',
+        email: 'student@amati.com',
       },
       update: {},
       create: {
-        email: 'student@bismika.com',
+        email: 'student@amati.com',
         fullname: 'Student',
         password: passwordAdmin,
         roleId: studentRole.id,
