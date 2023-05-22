@@ -22,10 +22,5 @@ jobs:
           script_stop: true
           envs: IMAGE_NAME,IMAGE_TAG
           script: |
-            echo "IMAGE:"
-            # export IMAGE_NAME=$IMAGE_NAME
-            # export IMAGE_TAG=$IMAGE_TAG
-            # mkdir -p app/master && cd app/master
-            # if [ -d config-management ]; then cd config-management && git restore . && git pull origin master; else git clone --branch=master git@github.com:iventifyid/config-management.git && cd config-management; fi
-            # # running stack deploy
-            # docker stack deploy --with-registry-auth -c docker-compose.yml -c docker-compose.frontend.yml iventifyid
+            echo "IMAGE: $IMAGE_NAME:$IMAGE_TAG"
+            ls
