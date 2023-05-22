@@ -1,0 +1,32 @@
+name: CICD Frontend
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build_push_deploy:
+    name: Build -> Push -> Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on Production
+        if: github.ref == 'refs/heads/master'
+        uses: appleboy/ssh-action@master
+        env:
+          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          envs: IMAGE_NAME,IMAGE_TAG
+          script: |
+            echo "IMAGE: $IMAGE_NAME:$IMAGE_TAG"
+            # export IMAGE_NAME=$IMAGE_NAME
+            # export IMAGE_TAG=$IMAGE_TAG
+            # mkdir -p app/master && cd app/master
+            # if [ -d config-management ]; then cd config-management && git restore . && git pull origin master; else git clone --branch=master git@github.com:iventifyid/config-management.git && cd config-management; fi
+            # # running stack deploy
+            # docker stack deploy --with-registry-auth -c docker-compose.yml -c docker-compose.frontend.yml iventifyid
