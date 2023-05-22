@@ -13,6 +13,7 @@ import { UsersModule } from './resources/master-data/users/users.module';
 import { VillagesModule } from './resources/master-data/villages/villages.module';
 import { ProblemStatementsModule } from './resources/master-data/problem-statements/problem-statements.module';
 import { CustomerSegmentsModule } from './resources/master-data/customer-segments/customer-segments.module';
+import { EarlyAdoptersModule } from './early-adopters/early-adopters.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CustomerSegmentsModule } from './resources/master-data/customer-segment
     VillagesModule,
     ProblemStatementsModule,
     CustomerSegmentsModule,
+    EarlyAdoptersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
