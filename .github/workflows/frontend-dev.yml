@@ -13,23 +13,23 @@ jobs:
       - name: Deploy on Development
         uses: appleboy/ssh-action@master
         env:
-          IMAGE_NAME: ${{ secrets.IMAGE_NAME_DEVELOP }}
+          IMAGE_NAME: ${{ secrets.IMAGE_NAMEDEVELOP }}
           IMAGE_TAG: ${{ secrets.IMAGE_TAG_DEVELOP }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script_stop: true
-          envs: IMAGE_NAME_DEVELOP,IMAGE_TAG_DEVELOP
+          envs: IMAGE_NAMEDEVELOP,IMAGE_TAG_DEVELOP
           script: |
-            echo "IMAGE: $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP"
+            echo "IMAGE: $IMAGE_NAMEDEVELOP:$IMAGE_TAG_DEVELOP"
             cd greenskill-education-api
             git config --global user.email "bismika@amati.com"
             git config --global user.name "Bismika Amati"
             git fetch
             git pull origin develop --no-rebase
-            sudo docker stop $IMAGE_NAME_DEVELOP
-            sudo docker rm $IMAGE_NAME_DEVELOP
-            sudo docker rmi $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP
-            sudo docker build -t $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP -f Dockerfile .
-            sudo docker run -e DATABASE_URL="postgres://bismika_usr:rahasia123@10.14.64.2:5432/bismika-dev?pool_timeout=0" -e PORT=3002 --name $IMAGE_NAME_DEVELOP -p 3000:3002 -d $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP
+            sudo docker stop $IMAGE_NAMEDEVELOP
+            sudo docker rm $IMAGE_NAMEDEVELOP
+            sudo docker rmi $IMAGE_NAMEDEVELOP:$IMAGE_TAG_DEVELOP
+            sudo docker build -t $IMAGE_NAMEDEVELOP:$IMAGE_TAG_DEVELOP -f Dockerfile .
+            sudo docker run -e DATABASE_URL="postgres://bismika_usr:rahasia123@10.14.64.2:5432/bismika-dev?pool_timeout=0" -e PORT=3002 --name $IMAGE_NAMEDEVELOP -p 3000:3002 -d $IMAGE_NAMEDEVELOP:$IMAGE_TAG_DEVELOP
