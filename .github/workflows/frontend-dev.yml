@@ -29,12 +29,7 @@ jobs:
             git fetch
             git pull origin develop --no-rebase
             sudo docker stop $IMAGE_NAME_DEVELOP
-            echo "--- Successfully stoped container ---"
             sudo docker rm $IMAGE_NAME_DEVELOP
-            echo "--- Successfully removed container ---"
             sudo docker rmi $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP
-            echo "--- Successfully removed image ---"
             sudo docker build -t $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP -f Dockerfile .
-            echo "--- Successfully build ---"
-            sudo docker run -e DATABASE_URL="postgres://bismika_usr:rahasia123@34.101.220.5:5432/bismika-dev?pool_timeout=0" -e PORT=3002 --name $IMAGE_NAME_DEVELOP -p 3000:3002 -d $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP
-            echo "--- Successfully run ---"
+            sudo docker run -e DATABASE_URL="postgres://bismika_usr:rahasia123@10.14.64.2:5432/bismika-dev?pool_timeout=0" -e PORT=3002 --name $IMAGE_NAME_DEVELOP -p 3000:3002 -d $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP
