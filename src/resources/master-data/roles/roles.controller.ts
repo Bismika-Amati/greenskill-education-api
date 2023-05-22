@@ -10,13 +10,15 @@ import {
   NotFoundException,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 import { ResponseEntity } from 'src/lib/entities';
 import { CreateRoleDto, QueryRoleDto, UpdateRoleDto } from './dto';
 import { RoleEntity } from './entities';
 import { RolesService } from './roles.service';
+import { JwtAuthGuard } from 'src/resources/auth/jwt-auth.guard';
 
 @Controller({
   path: 'master-data/roles',
@@ -27,6 +29,8 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async create(@Body() createRoleDto: CreateRoleDto) {
     try {
       const role = await this.rolesService.create(createRoleDto);
@@ -50,6 +54,8 @@ export class RolesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async findAll(@Query() queryDto: QueryRoleDto) {
     const roles = await this.rolesService.findAll(queryDto);
 
@@ -64,6 +70,8 @@ export class RolesController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async findOne(@Param('id') id: string) {
     const role = await this.rolesService.findOne(id);
 
@@ -79,6 +87,8 @@ export class RolesController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     let role = await this.rolesService.findOne(id);
 
@@ -96,6 +106,8 @@ export class RolesController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async remove(@Param('id') id: string) {
     let role = await this.rolesService.findOne(id);
 
