@@ -26,6 +26,9 @@ export class QueryCityDto {
   @IsOptional()
   search?: string;
 
+  @IsOptional()
+  provinceId?: string;
+
   get getOrderBy() {
     if (this.orderBy)
       return {

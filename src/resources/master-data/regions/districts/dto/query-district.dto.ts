@@ -26,6 +26,9 @@ export class QueryDistrictDto {
   @IsOptional()
   search?: string;
 
+  @IsOptional()
+  cityId?: string;
+
   get getOrderBy() {
     if (this.orderBy)
       return {

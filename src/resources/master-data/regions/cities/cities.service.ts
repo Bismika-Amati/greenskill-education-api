@@ -24,6 +24,7 @@ export class CitiesService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
+        provinceId: queryDto.provinceId,
       },
       orderBy: queryDto.getOrderBy,
     });
