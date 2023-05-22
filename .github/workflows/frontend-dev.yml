@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy on Production
-        if: github.ref == 'refs/heads/master'
         uses: appleboy/ssh-action@master
         env:
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
@@ -23,7 +22,7 @@ jobs:
           script_stop: true
           envs: IMAGE_NAME,IMAGE_TAG
           script: |
-            echo "IMAGE: akmcskslamc"
+            echo "IMAGE:"
             # export IMAGE_NAME=$IMAGE_NAME
             # export IMAGE_TAG=$IMAGE_TAG
             # mkdir -p app/master && cd app/master
