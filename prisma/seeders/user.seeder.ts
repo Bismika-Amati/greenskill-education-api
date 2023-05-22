@@ -36,11 +36,11 @@ export class UserSeeder implements Seeder {
 
     const admin = await this.prisma.user.upsert({
       where: {
-        email: 'admin@admin.com',
+        email: 'admin@bismika.com',
       },
       update: {},
       create: {
-        email: 'admin@admin.com',
+        email: 'admin@bismika.com',
         fullname: 'Admin',
         password: passwordAdmin,
         roleId: adminRole.id,
@@ -53,16 +53,35 @@ export class UserSeeder implements Seeder {
     });
     const student = await this.prisma.user.upsert({
       where: {
-        email: 'admin@admin.com',
+        email: 'student@bismika.com',
       },
       update: {},
       create: {
-        email: 'admin@admin.com',
-        fullname: 'Admin',
+        email: 'student@bismika.com',
+        fullname: 'Student',
         password: passwordAdmin,
         roleId: studentRole.id,
       },
     });
     info(`# inserting user -- id: ${student.id}, name ${student.fullname}`);
+
+    const picVillageRole = await this.prisma.role.findUnique({
+      where: { name: RoleType.PIC_VILLAGE },
+    });
+    const picVillage = await this.prisma.user.upsert({
+      where: {
+        email: 'picvillage@amati.com',
+      },
+      update: {},
+      create: {
+        email: 'picvillage@amati.com',
+        fullname: 'PIC Village',
+        password: passwordAdmin,
+        roleId: picVillageRole.id,
+      },
+    });
+    info(
+      `# inserting user -- id: ${picVillage.id}, name ${picVillage.fullname}`,
+    );
   }
 }

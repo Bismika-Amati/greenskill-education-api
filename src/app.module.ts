@@ -10,6 +10,7 @@ import { DistrictsModule } from './resources/master-data/regions/districts/distr
 import { SubDistrictsModule } from './resources/master-data/regions/sub-districts/sub-districts.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { UsersModule } from './resources/master-data/users/users.module';
+import { VillagesModule } from './resources/master-data/villages/villages.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersModule } from './resources/master-data/users/users.module';
     SubDistrictsModule,
     AuthModule,
     UsersModule,
+    VillagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
