@@ -10,7 +10,7 @@ jobs:
     name: Build -> Push -> Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy on Production
+      - name: Deploy on Development
         uses: appleboy/ssh-action@master
         env:
           IMAGE_NAME: ${{ secrets.IMAGE_NAME_DEVELOP }}
@@ -24,6 +24,9 @@ jobs:
           script: |
             echo "IMAGE: $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP"
             cd greenskill-education-api
+            git config --global user.email "bismika@amati.com"
+            git config --global user.name "Bismika Amati"
+            git fetch
             git pull origin develop --no-rebase
             sudo docker stop $IMAGE_NAME_DEVELOP
             echo "--- Successfully stoped container ---"
