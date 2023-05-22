@@ -19,12 +19,12 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script_stop: false
+          script_stop: true
           envs: IMAGE_NAME_DEVELOP,IMAGE_TAG_DEVELOP
           script: |
             echo "IMAGE: $IMAGE_NAME_DEVELOP:$IMAGE_TAG_DEVELOP"
             cd greenskill-education-api
-            git pull origin develop
+            git pull origin develop --no-rebase
             sudo docker stop $IMAGE_NAME_DEVELOP
             echo "--- Successfully stoped container ---"
             sudo docker rm $IMAGE_NAME_DEVELOP
