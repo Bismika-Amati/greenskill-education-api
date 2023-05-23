@@ -15,6 +15,7 @@ import { ProblemStatementsModule } from './resources/master-data/problem-stateme
 import { CustomerSegmentsModule } from './resources/master-data/customer-segments/customer-segments.module';
 import { EarlyAdoptersModule } from './resources/master-data/early-adopters/early-adopters.module';
 import { ExistingAlternativesModule } from './resources/master-data/existing-alternatives/existing-alternatives.module';
+import { InterviewRecapsModule } from './resources/master-data/interview-recaps/interview-recaps.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ExistingAlternativesModule } from './resources/master-data/existing-alt
     CustomerSegmentsModule,
     EarlyAdoptersModule,
     ExistingAlternativesModule,
+    InterviewRecapsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

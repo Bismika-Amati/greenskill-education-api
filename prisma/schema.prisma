@@ -173,7 +173,7 @@ model InterviewRecap {
   characteristic     String?          @db.Text
   interviewDate      DateTime
   evidenceVideo      String?
-  evidencetext       String?
+  evidenceText       String?
   problemStatementId String
   intervieweeId      String
   createdAt          DateTime         @default(now())

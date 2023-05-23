@@ -35,12 +35,12 @@ export class VillagesController {
   @ApiBearerAuth()
   async create(@Body() createVillageDto: CreateVillageDto) {
     try {
-      const user = await this.villagesService.create(createVillageDto);
+      const village = await this.villagesService.create(createVillageDto);
 
       return new ResponseEntity({
         statusCode: HttpStatus.OK,
         message: 'created',
-        data: new VillageEntity(user),
+        data: new VillageEntity(village),
       });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
@@ -75,16 +75,16 @@ export class VillagesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async findOne(@Param('id') id: string) {
-    const user = await this.villagesService.findOne(id);
+    const village = await this.villagesService.findOne(id);
 
-    if (!user) {
+    if (!village) {
       throw new NotFoundException(`Village with ${id} does not exist.`);
     }
 
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'success',
-      data: new VillageEntity(user),
+      data: new VillageEntity(village),
     });
   }
 
@@ -95,18 +95,18 @@ export class VillagesController {
     @Param('id') id: string,
     @Body() updateVillageDto: UpdateVillageDto,
   ) {
-    let user = await this.villagesService.findOne(id);
+    let village = await this.villagesService.findOne(id);
 
-    if (!user) {
-      throw new NotFoundException(`User with ${id} does not exist.`);
+    if (!village) {
+      throw new NotFoundException(`Village with ${id} does not exist.`);
     }
 
-    user = await this.villagesService.update(id, updateVillageDto);
+    village = await this.villagesService.update(id, updateVillageDto);
 
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'updated',
-      data: new VillageEntity(user),
+      data: new VillageEntity(village),
     });
   }
 
@@ -114,18 +114,18 @@ export class VillagesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async remove(@Param('id') id: string) {
-    let user = await this.villagesService.findOne(id);
+    let village = await this.villagesService.findOne(id);
 
-    if (!user) {
+    if (!village) {
       throw new NotFoundException(`Village with ${id} does not exist.`);
     }
 
-    user = await this.villagesService.remove(id);
+    village = await this.villagesService.remove(id);
 
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'deleted',
-      data: new VillageEntity(user),
+      data: new VillageEntity(village),
     });
   }
 }
