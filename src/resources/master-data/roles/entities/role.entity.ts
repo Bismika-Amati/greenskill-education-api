@@ -26,11 +26,10 @@ export class RoleEntity {
   }
 
   mapper(item: Partial<RoleEntity>) {
-    const { id, name } = item;
+    const { ...rest } = item;
 
     return {
-      id,
-      name,
+      ...rest,
     };
   }
 
