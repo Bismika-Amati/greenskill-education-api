@@ -20,16 +20,16 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script_stop: true
-          envs: IMAGE_NAME_STAGING,IMAGE_TAG_STAGING
+          envs: IMAGE_NAME,IMAGE_TAG
           script: |
-            echo "IMAGE: $IMAGE_NAME_STAGING:$IMAGE_TAG_STAGING"
+            echo "IMAGE: $IMAGE_NAME:$IMAGE_TAG"
             cd greenskill-education-api
             git config --global user.email "bismika@amati.com"
             git config --global user.name "Bismika Amati"
             git fetch
             git pull origin develop --no-rebase
-            sudo docker stop $IMAGE_NAME_STAGING
-            sudo docker rm $IMAGE_NAME_STAGING
-            sudo docker rmi $IMAGE_NAME_STAGING:$IMAGE_TAG_STAGING
-            sudo docker build -t $IMAGE_NAME_STAGING:$IMAGE_TAG_STAGING -f Dockerfile .
-            sudo docker run -e DATABASE_URL="postgres://bismika_usr:rahasia123@10.14.64.2:5432/bismika-staging?pool_timeout=0" -e PORT=3001 --name $IMAGE_NAME_STAGING -p 3001:3000 -d $IMAGE_NAME_STAGING:$IMAGE_TAG_STAGING
+            sudo docker stop $IMAGE_NAME
+            sudo docker rm $IMAGE_NAME
+            sudo docker rmi $IMAGE_NAME:$IMAGE_TAG
+            sudo docker build -t $IMAGE_NAME:$IMAGE_TAG -f Dockerfile .
+            sudo docker run -e DATABASE_URL="postgres://bismika_usr:rahasia123@10.14.64.2:5432/bismika-dev?pool_timeout=0" -e PORT=3001 --name $IMAGE_NAME -p 3001:3000 -d $IMAGE_NAME:$IMAGE_TAG
