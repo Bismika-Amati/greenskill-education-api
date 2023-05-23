@@ -35,6 +35,7 @@ export class ProblemStatementsService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
+        villageId: queryDto.villageId,
       },
       orderBy: queryDto.getOrderBy,
     });

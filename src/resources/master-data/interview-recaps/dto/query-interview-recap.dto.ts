@@ -26,6 +26,12 @@ export class QueryInterviewRecapDto {
   @IsOptional()
   search?: string;
 
+  @IsOptional()
+  problemStatementId?: string;
+
+  @IsOptional()
+  intervieweeId?: string;
+
   get getOrderBy() {
     if (this.orderBy)
       return {

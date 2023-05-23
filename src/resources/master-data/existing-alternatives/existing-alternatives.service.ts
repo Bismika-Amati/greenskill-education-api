@@ -35,6 +35,7 @@ export class ExistingAlternativesService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
+        problemStatementId: queryDto.problemStatementId,
       },
       orderBy: queryDto.getOrderBy,
     });

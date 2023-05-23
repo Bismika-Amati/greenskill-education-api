@@ -31,6 +31,7 @@ export class UsersService {
           contains: queryDto.search,
           mode: 'insensitive',
         },
+        roleId: queryDto.roleId,
       },
       orderBy: queryDto.getOrderBy,
     });

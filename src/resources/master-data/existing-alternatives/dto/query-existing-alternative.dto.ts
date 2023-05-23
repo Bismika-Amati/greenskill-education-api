@@ -26,6 +26,9 @@ export class QueryExistingAlternativeDto {
   @IsOptional()
   search?: string;
 
+  @IsOptional()
+  problemStatementId?: string;
+
   get getOrderBy() {
     if (this.orderBy)
       return {

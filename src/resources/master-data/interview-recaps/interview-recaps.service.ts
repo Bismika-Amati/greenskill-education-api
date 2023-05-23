@@ -27,6 +27,10 @@ export class InterviewRecapsService {
     return await paginate<InterviewRecap, Prisma.InterviewRecapFindManyArgs>(
       this.prisma.interviewRecap,
       {
+        where: {
+          intervieweeId: queryDto.intervieweeId,
+          problemStatementId: queryDto.problemStatementId,
+        },
         orderBy: queryDto.getOrderBy,
       },
     );

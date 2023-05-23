@@ -1,11 +1,11 @@
 import { Transform } from 'class-transformer';
 import { IsEnum, IsNumber, IsOptional } from 'class-validator';
 import { InArray } from 'src/lib/validators';
-import { toNumber } from 'src/lib/helper/cast.helper';
 import { OrderType, PaginatorLimit } from 'src/lib/enums';
+import { toNumber } from 'src/lib/helper';
 import { OrderBy } from '../enums/order-by.enum';
 
-export class QueryVillageDto {
+export class QueryProblemDto {
   @Transform(({ value }) => toNumber(value, { default: 1, min: 1 }))
   @IsNumber()
   @IsOptional()
@@ -27,7 +27,7 @@ export class QueryVillageDto {
   search?: string;
 
   @IsOptional()
-  picId?: string;
+  interviewRecapId?: string;
 
   get getOrderBy() {
     if (this.orderBy)

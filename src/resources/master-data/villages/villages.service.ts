@@ -28,6 +28,7 @@ export class VillagesService {
             contains: queryDto.search,
             mode: 'insensitive',
           },
+          picId: queryDto.picId,
         },
         orderBy: queryDto.getOrderBy,
       },

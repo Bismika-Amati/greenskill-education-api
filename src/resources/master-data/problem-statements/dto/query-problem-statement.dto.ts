@@ -26,6 +26,9 @@ export class QueryProblemStatementDto {
   @IsOptional()
   search?: string;
 
+  @IsOptional()
+  villageId?: string;
+
   get getOrderBy() {
     if (this.orderBy)
       return {

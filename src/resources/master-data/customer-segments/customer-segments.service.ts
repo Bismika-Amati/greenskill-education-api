@@ -34,6 +34,7 @@ export class CustomerSegmentsService {
             contains: queryDto.search,
             mode: 'insensitive',
           },
+          problemStatementId: queryDto.problemStatementId,
         },
         orderBy: queryDto.getOrderBy,
       },
