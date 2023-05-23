@@ -27,7 +27,7 @@ export class CustomerSegmentsService {
     });
 
     return await paginate<CustomerSegment, Prisma.CustomerSegmentFindManyArgs>(
-      this.prisma.province,
+      this.prisma.customerSegment,
       {
         where: {
           title: {

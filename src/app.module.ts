@@ -13,7 +13,8 @@ import { UsersModule } from './resources/master-data/users/users.module';
 import { VillagesModule } from './resources/master-data/villages/villages.module';
 import { ProblemStatementsModule } from './resources/master-data/problem-statements/problem-statements.module';
 import { CustomerSegmentsModule } from './resources/master-data/customer-segments/customer-segments.module';
-import { EarlyAdoptersModule } from './early-adopters/early-adopters.module';
+import { EarlyAdoptersModule } from './resources/master-data/early-adopters/early-adopters.module';
+import { ExistingAlternativesModule } from './resources/master-data/existing-alternatives/existing-alternatives.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EarlyAdoptersModule } from './early-adopters/early-adopters.module';
     ProblemStatementsModule,
     CustomerSegmentsModule,
     EarlyAdoptersModule,
+    ExistingAlternativesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

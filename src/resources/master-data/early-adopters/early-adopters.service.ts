@@ -13,7 +13,7 @@ export class EarlyAdoptersService {
   async create(
     createEarlyAdopterDto: CreateEarlyAdopterDto,
   ): Promise<EarlyAdopter> {
-    return await this.prisma.customerSegment.create({
+    return await this.prisma.earlyAdopter.create({
       data: createEarlyAdopterDto,
     });
   }
@@ -27,7 +27,7 @@ export class EarlyAdoptersService {
     });
 
     return await paginate<EarlyAdopter, Prisma.EarlyAdopterFindManyArgs>(
-      this.prisma.province,
+      this.prisma.earlyAdopter,
       {
         where: {
           title: {
@@ -41,7 +41,7 @@ export class EarlyAdoptersService {
   }
 
   async findOne(id: string): Promise<EarlyAdopter | null> {
-    return await this.prisma.customerSegment.findUnique({
+    return await this.prisma.earlyAdopter.findUnique({
       where: { id },
     });
   }
@@ -50,14 +50,14 @@ export class EarlyAdoptersService {
     id: string,
     updateEarlyAdopterDto: UpdateEarlyAdopterDto,
   ): Promise<EarlyAdopter> {
-    return await this.prisma.customerSegment.update({
+    return await this.prisma.earlyAdopter.update({
       where: { id },
       data: updateEarlyAdopterDto,
     });
   }
 
   async remove(id: string): Promise<EarlyAdopter> {
-    return await this.prisma.customerSegment.delete({
+    return await this.prisma.earlyAdopter.delete({
       where: { id },
     });
   }
