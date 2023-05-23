@@ -1,4 +1,4 @@
-name: CICD Api
+name: CICD Api Develop
 
 on:
   push:
