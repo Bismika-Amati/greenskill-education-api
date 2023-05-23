@@ -23,7 +23,7 @@ jobs:
           envs: IMAGE_NAME,IMAGE_TAG
           script: |
             echo "IMAGE: $IMAGE_NAME:$IMAGE_TAG"
-            cd greenskill-education-backoffice
+            cd greenskill-education-api
             git config --global user.email "bismika@amati.com"
             git config --global user.name "Bismika Amati"
             git fetch
