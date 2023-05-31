@@ -32,7 +32,7 @@ export class QueryUserDto {
   get getOrderBy() {
     if (this.orderBy)
       return {
-        [this.orderBy]: this.orderType ?? OrderType.DESC,
+        [this.orderBy ?? OrderBy.CREATEDAT]: this.orderType ?? OrderType.DESC,
       };
   }
 }
