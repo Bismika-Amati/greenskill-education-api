@@ -33,9 +33,14 @@ export class QueryInterviewRecapDto {
   intervieweeId?: string;
 
   get getOrderBy() {
-    if (this.orderBy)
+    if (this.orderBy) {
       return {
-        [this.orderBy ?? OrderBy.UPDATEDAT]: this.orderType ?? OrderType.DESC,
+        [this.orderBy]: this.orderType ?? OrderType.DESC,
       };
+    }
+
+    return {
+      [OrderBy.UPDATEDAT]: OrderType.DESC,
+    };
   }
 }

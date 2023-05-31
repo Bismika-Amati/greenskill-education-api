@@ -27,9 +27,14 @@ export class QueryProvinceDto {
   search?: string;
 
   get getOrderBy() {
-    if (this.orderBy)
+    if (this.orderBy) {
       return {
-        [this.orderBy ?? OrderBy.CREATEDAT]: this.orderType ?? OrderType.DESC,
+        [this.orderBy]: this.orderType ?? OrderType.DESC,
       };
+    }
+
+    return {
+      [OrderBy.UPDATEDAT]: OrderType.DESC,
+    };
   }
 }
