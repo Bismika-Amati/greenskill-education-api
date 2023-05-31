@@ -18,14 +18,29 @@ export class AuthController {
 
   @Post('login')
   @ApiOkResponse({ type: AuthEntity })
-  login(@Body() { email, password }: LoginDto) {
-    return this.authService.login(email, password);
+  async login(@Body() { email, password }: LoginDto) {
+    const user = await this.authService.login(email, password);
+
+    return new ResponseEntity({
+      statusCode: HttpStatus.OK,
+      message: 'success',
+      data: user,
+    });
   }
 
   @Post('login-by-role')
   @ApiOkResponse({ type: AuthEntity })
-  loginByRole(@Query() queryDto: QueryAuthDto, @Body() dataDto: LoginDto) {
-    return this.authService.loginByRole(queryDto, dataDto);
+  async loginByRole(
+    @Query() queryDto: QueryAuthDto,
+    @Body() dataDto: LoginDto,
+  ) {
+    const user = await this.authService.loginByRole(queryDto, dataDto);
+
+    return new ResponseEntity({
+      statusCode: HttpStatus.OK,
+      message: 'success',
+      data: user,
+    });
   }
 
   @Post('register-by-role')
