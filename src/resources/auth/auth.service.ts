@@ -19,7 +19,16 @@ export class AuthService {
 
   async login(email: string, password: string) {
     // Step 1: Fetch a user with the given email
-    const user = await this.prisma.user.findUnique({ where: { email: email } });
+    const user = await this.prisma.user.findUnique({
+      where: { email: email },
+      include: {
+        role: true,
+        province: true,
+        city: true,
+        district: true,
+        subDistrict: true,
+      },
+    });
 
     // If no user is found, throw an error
     if (!user) {
@@ -55,6 +64,13 @@ export class AuthService {
 
     const user = await this.prisma.user.findFirst({
       where: { email, roleId: foundRole.id },
+      include: {
+        role: true,
+        province: true,
+        city: true,
+        district: true,
+        subDistrict: true,
+      },
     });
 
     if (!user) {
