@@ -28,8 +28,8 @@ jobs:
             git config --global user.name "Bismika Amati"
             git fetch
             git pull origin develop --no-rebase
-            # sudo docker stop $IMAGE_NAME
-            # sudo docker rm $IMAGE_NAME
-            # sudo docker rmi $IMAGE_NAME:$IMAGE_TAG
+            sudo docker stop $IMAGE_NAME
+            sudo docker rm $IMAGE_NAME
+            sudo docker rmi $IMAGE_NAME:$IMAGE_TAG
             sudo docker build -t $IMAGE_NAME:$IMAGE_TAG -f Dockerfile .
             sudo docker run -e DATABASE_URL="postgres://bismika_usr:rahasia123@10.14.64.12:5432/dev_db" -e PORT=3000 --name $IMAGE_NAME -p 3000:3000 -d $IMAGE_NAME:$IMAGE_TAG
