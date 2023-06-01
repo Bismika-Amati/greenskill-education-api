@@ -20,9 +20,4 @@ export class CreateInterviewRecapDto {
   @IsNotEmpty()
   @ApiProperty()
   problemStatementId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  intervieweeId: string;
 }
