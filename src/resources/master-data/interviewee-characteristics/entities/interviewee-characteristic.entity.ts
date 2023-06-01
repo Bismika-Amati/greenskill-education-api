@@ -1,24 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { InterviewRecap } from '@prisma/client';
+import { InterviewRecapEntity } from '../../interview-recaps/entities';
+import { IntervieweeCharacteristic } from '@prisma/client';
 
-export class InterviewRecapEntity {
+export class IntervieweeCharacteristicEntity {
   @ApiProperty()
   id: string;
 
   @ApiProperty()
-  intervieweeName: string;
+  title: string;
 
   @ApiProperty()
-  interviewDate: Date;
+  description?: string;
 
   @ApiProperty()
-  evidenceVideo?: string;
-
-  @ApiProperty()
-  evidenceText?: string;
-
-  @ApiProperty()
-  problemStatementId: string;
+  interviewRecapId: string;
 
   @ApiProperty()
   createdAt: Date;
@@ -29,7 +24,10 @@ export class InterviewRecapEntity {
   @ApiProperty()
   deletedAt: Date;
 
-  constructor(partial?: Partial<InterviewRecapEntity>) {
+  @ApiProperty()
+  interviewRecap: InterviewRecapEntity;
+
+  constructor(partial?: Partial<IntervieweeCharacteristicEntity>) {
     if (!partial) return;
 
     const { ...data } = partial;
@@ -37,7 +35,7 @@ export class InterviewRecapEntity {
     Object.assign(this, this.mapper(data));
   }
 
-  mapper(item: Partial<InterviewRecapEntity>) {
+  mapper(item: Partial<IntervieweeCharacteristicEntity>) {
     const { ...rest } = item;
 
     return {
@@ -45,7 +43,7 @@ export class InterviewRecapEntity {
     };
   }
 
-  collection(partials: Partial<InterviewRecap[]>) {
+  collection(partials: Partial<IntervieweeCharacteristic[]>) {
     if (partials.length > 0) {
       return partials.map((item) => this.mapper(item));
     }

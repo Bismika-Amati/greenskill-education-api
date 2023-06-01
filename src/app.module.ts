@@ -17,6 +17,7 @@ import { EarlyAdoptersModule } from './resources/master-data/early-adopters/earl
 import { ExistingAlternativesModule } from './resources/master-data/existing-alternatives/existing-alternatives.module';
 import { InterviewRecapsModule } from './resources/master-data/interview-recaps/interview-recaps.module';
 import { ProblemsModule } from './resources/master-data/problems/problems.module';
+import { IntervieweeCharacteristicsModule } from './resources/master-data/interviewee-characteristics/interviewee-characteristics.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ProblemsModule } from './resources/master-data/problems/problems.module
     ExistingAlternativesModule,
     InterviewRecapsModule,
     ProblemsModule,
+    IntervieweeCharacteristicsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

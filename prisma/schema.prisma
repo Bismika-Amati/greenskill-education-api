@@ -169,18 +169,29 @@ model EarlyAdopter {
 }
 
 model InterviewRecap {
-  id                 String           @id @default(uuid())
-  characteristic     String?          @db.Text
-  interviewDate      DateTime
-  evidenceVideo      String?
-  evidenceText       String?
-  problemStatementId String
-  intervieweeId      String
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-  deletedAt          DateTime?
-  problemStatement   ProblemStatement @relation(fields: [problemStatementId], references: [id])
-  Problem            Problem[]
+  id                        String                      @id @default(uuid())
+  interviewDate             DateTime
+  evidenceVideo             String?
+  evidenceText              String?
+  problemStatementId        String
+  intervieweeName           String
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  deletedAt                 DateTime?
+  problemStatement          ProblemStatement            @relation(fields: [problemStatementId], references: [id])
+  Problem                   Problem[]
+  IntervieweeCharacteristic IntervieweeCharacteristic[]
+}
+
+model IntervieweeCharacteristic {
+  id               String         @id @default(uuid())
+  title            String
+  description      String?        @db.Text
+  interviewRecapId String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  deletedAt        DateTime?
+  interviewRecap   InterviewRecap @relation(fields: [interviewRecapId], references: [id])
 }
 
 model Problem {

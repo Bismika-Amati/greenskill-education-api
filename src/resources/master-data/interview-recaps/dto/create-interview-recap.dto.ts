@@ -3,7 +3,7 @@ import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateInterviewRecapDto {
   @ApiProperty()
-  characteristic: string;
+  intervieweeName: string;
 
   @IsString()
   @IsNotEmpty()

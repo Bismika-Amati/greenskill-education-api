@@ -56,8 +56,6 @@ export class VillagesController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   async findAll(@Query() queryDto: QueryVillageDto) {
     const villages = await this.villagesService.findAll(queryDto);
 
@@ -72,8 +70,6 @@ export class VillagesController {
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   async findOne(@Param('id') id: string) {
     const village = await this.villagesService.findOne(id);
 
