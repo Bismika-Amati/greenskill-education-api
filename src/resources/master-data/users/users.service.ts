@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma, User } from '@prisma/client';
+import { Prisma, Role, User } from '@prisma/client';
 import { PaginatedResult, createPaginator } from 'prisma-pagination';
 import { QueryUserDto } from './dto';
 import { hashPassword } from 'src/lib/helper';
@@ -20,6 +20,18 @@ export class UsersService {
   }
 
   async findAll(queryDto: QueryUserDto): Promise<PaginatedResult<User>> {
+    let role: Role = null;
+    if (queryDto.role) {
+      role = await this.prisma.role.findUnique({
+        where: { name: queryDto.role },
+      });
+      if (!role) {
+        throw new NotFoundException(
+          `Role with ${queryDto.role} does not exist.`,
+        );
+      }
+    }
+
     const paginate = createPaginator({
       perPage: queryDto.perPage,
       page: queryDto.page,
@@ -32,6 +44,7 @@ export class UsersService {
           mode: 'insensitive',
         },
         roleId: queryDto.roleId,
+        ...(role && { roleId: role.id }),
       },
       orderBy: queryDto.getOrderBy,
     });

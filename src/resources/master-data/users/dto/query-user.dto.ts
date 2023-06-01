@@ -29,6 +29,9 @@ export class QueryUserDto {
   @IsOptional()
   roleId?: string;
 
+  @IsOptional()
+  role?: string;
+
   get getOrderBy() {
     if (this.orderBy) {
       return {
