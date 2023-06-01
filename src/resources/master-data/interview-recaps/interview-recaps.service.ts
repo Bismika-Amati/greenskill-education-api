@@ -28,7 +28,6 @@ export class InterviewRecapsService {
       this.prisma.interviewRecap,
       {
         where: {
-          intervieweeId: queryDto.intervieweeId,
           problemStatementId: queryDto.problemStatementId,
         },
         orderBy: queryDto.getOrderBy,
