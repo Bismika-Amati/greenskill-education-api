@@ -11,7 +11,7 @@ export class QueryInterviewRecapDto {
   @IsOptional()
   page?: number;
 
-  @InArray([10, 25, 50, 100])
+  @InArray([5, 10, 25, 50, 100])
   @IsOptional()
   perPage?: PaginatorLimit;
 
