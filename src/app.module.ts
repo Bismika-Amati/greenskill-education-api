@@ -14,6 +14,7 @@ import { VillagesModule } from './resources/master-data/villages/villages.module
 import { ProblemStatementsModule } from './resources/master-data/problem-statements/problem-statements.module';
 import { ExistingAlternativesModule } from './resources/master-data/existing-alternatives/existing-alternatives.module';
 import { CoursesModule } from './resources/master-data/courses/courses.module';
+import { SubModulesModule } from './resources/master-data/sub-modules/sub-modules.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { CoursesModule } from './resources/master-data/courses/courses.module';
     ProblemStatementsModule,
     ExistingAlternativesModule,
     CoursesModule,
+    SubModulesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

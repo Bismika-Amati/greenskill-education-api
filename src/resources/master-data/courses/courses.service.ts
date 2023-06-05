@@ -35,6 +35,9 @@ export class CoursesService {
   async findOne(id: string): Promise<Course | null> {
     return await this.prisma.course.findUnique({
       where: { id },
+      include: {
+        SubModule: true,
+      },
     });
   }
 

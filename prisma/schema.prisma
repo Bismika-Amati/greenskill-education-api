@@ -184,18 +184,32 @@ model UserCourse {
 }
 
 model SubModule {
-  id         String       @id @default(uuid())
-  number     Int
-  title      String
-  video      String?
-  article    String?      @db.Text
-  photo      String?
-  courseId   String
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  deletedAt  DateTime?
-  course     Course       @relation(fields: [courseId], references: [id])
-  DoneModule DoneModule[]
+  id               String             @id @default(uuid())
+  number           Int
+  title            String
+  description      String?            @db.Text
+  video            String?
+  picture          String?
+  courseId         String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  course           Course             @relation(fields: [courseId], references: [id])
+  DoneModule       DoneModule[]
+  ArticleSubModule ArticleSubModule[]
+}
+
+model ArticleSubModule {
+  id          String    @id @default(uuid())
+  title       String
+  description String    @db.Text
+  picture     String?
+  video       String?
+  subModuleId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  subModule   SubModule @relation(fields: [subModuleId], references: [id])
 }
 
 model DoneModule {
