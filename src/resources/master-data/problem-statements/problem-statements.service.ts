@@ -38,6 +38,9 @@ export class ProblemStatementsService {
         villageId: queryDto.villageId,
       },
       orderBy: queryDto.getOrderBy,
+      include: {
+        village: true,
+      },
     });
   }
 
