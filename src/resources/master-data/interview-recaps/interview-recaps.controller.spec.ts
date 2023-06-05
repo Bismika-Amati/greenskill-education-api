@@ -11,7 +11,9 @@ describe('InterviewRecapsController', () => {
       providers: [InterviewRecapsService],
     }).compile();
 
-    controller = module.get<InterviewRecapsController>(InterviewRecapsController);
+    controller = module.get<InterviewRecapsController>(
+      InterviewRecapsController,
+    );
   });
 
   it('should be defined', () => {

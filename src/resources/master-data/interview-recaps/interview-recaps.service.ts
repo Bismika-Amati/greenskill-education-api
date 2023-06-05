@@ -11,6 +11,7 @@ export class InterviewRecapsService {
   constructor(private prisma: PrismaService) {}
 
   async create(createInterviewRecapDto: CreateInterviewRecapDto) {
+    console.log('createInterviewRecapDto ', createInterviewRecapDto);
     return await this.prisma.interviewRecap.create({
       data: createInterviewRecapDto,
     });

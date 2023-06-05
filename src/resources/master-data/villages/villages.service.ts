@@ -38,6 +38,13 @@ export class VillagesService {
   async findOne(id: string): Promise<Village | null> {
     return await this.prisma.village.findUnique({
       where: { id },
+      include: {
+        province: true,
+        city: true,
+        district: true,
+        subDistrict: true,
+        pic: true,
+      },
     });
   }
 
