@@ -140,69 +140,7 @@ model ProblemStatement {
   updatedAt           DateTime              @updatedAt
   deletedAt           DateTime?
   village             Village               @relation(fields: [villageId], references: [id])
-  CustomerSegment     CustomerSegment[]
-  EarlyAdopter        EarlyAdopter[]
-  InterviewRecap      InterviewRecap[]
   ExistingAlternative ExistingAlternative[]
-}
-
-model CustomerSegment {
-  id                 String           @id @default(uuid())
-  title              String
-  description        String?          @db.Text
-  problemStatementId String
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-  deletedAt          DateTime?
-  problemStatement   ProblemStatement @relation(fields: [problemStatementId], references: [id])
-}
-
-model EarlyAdopter {
-  id                 String           @id @default(uuid())
-  title              String
-  description        String?          @db.Text
-  problemStatementId String
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-  deletedAt          DateTime?
-  problemStatement   ProblemStatement @relation(fields: [problemStatementId], references: [id])
-}
-
-model InterviewRecap {
-  id                        String                      @id @default(uuid())
-  interviewDate             DateTime
-  evidenceVideo             String?
-  evidenceText              String?
-  problemStatementId        String
-  intervieweeName           String
-  createdAt                 DateTime                    @default(now())
-  updatedAt                 DateTime                    @updatedAt
-  deletedAt                 DateTime?
-  problemStatement          ProblemStatement            @relation(fields: [problemStatementId], references: [id])
-  Problem                   Problem[]
-  IntervieweeCharacteristic IntervieweeCharacteristic[]
-}
-
-model IntervieweeCharacteristic {
-  id               String         @id @default(uuid())
-  title            String
-  description      String?        @db.Text
-  interviewRecapId String
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  deletedAt        DateTime?
-  interviewRecap   InterviewRecap @relation(fields: [interviewRecapId], references: [id])
-}
-
-model Problem {
-  id               String         @id @default(uuid())
-  title            String
-  description      String?        @db.Text
-  interviewRecapId String
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  deletedAt        DateTime?
-  interviewRecap   InterviewRecap @relation(fields: [interviewRecapId], references: [id])
 }
 
 model ExistingAlternative {

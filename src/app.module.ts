@@ -12,12 +12,7 @@ import { AuthModule } from './resources/auth/auth.module';
 import { UsersModule } from './resources/master-data/users/users.module';
 import { VillagesModule } from './resources/master-data/villages/villages.module';
 import { ProblemStatementsModule } from './resources/master-data/problem-statements/problem-statements.module';
-import { CustomerSegmentsModule } from './resources/master-data/customer-segments/customer-segments.module';
-import { EarlyAdoptersModule } from './resources/master-data/early-adopters/early-adopters.module';
 import { ExistingAlternativesModule } from './resources/master-data/existing-alternatives/existing-alternatives.module';
-import { InterviewRecapsModule } from './resources/master-data/interview-recaps/interview-recaps.module';
-import { ProblemsModule } from './resources/master-data/problems/problems.module';
-import { IntervieweeCharacteristicsModule } from './resources/master-data/interviewee-characteristics/interviewee-characteristics.module';
 import { CoursesModule } from './resources/master-data/courses/courses.module';
 
 @Module({
@@ -32,12 +27,7 @@ import { CoursesModule } from './resources/master-data/courses/courses.module';
     UsersModule,
     VillagesModule,
     ProblemStatementsModule,
-    CustomerSegmentsModule,
-    EarlyAdoptersModule,
     ExistingAlternativesModule,
-    InterviewRecapsModule,
-    ProblemsModule,
-    IntervieweeCharacteristicsModule,
     CoursesModule,
   ],
   controllers: [AppController],
