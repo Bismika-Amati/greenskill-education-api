@@ -18,6 +18,7 @@ import { ExistingAlternativesModule } from './resources/master-data/existing-alt
 import { InterviewRecapsModule } from './resources/master-data/interview-recaps/interview-recaps.module';
 import { ProblemsModule } from './resources/master-data/problems/problems.module';
 import { IntervieweeCharacteristicsModule } from './resources/master-data/interviewee-characteristics/interviewee-characteristics.module';
+import { CoursesModule } from './resources/master-data/courses/courses.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { IntervieweeCharacteristicsModule } from './resources/master-data/interv
     InterviewRecapsModule,
     ProblemsModule,
     IntervieweeCharacteristicsModule,
+    CoursesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,6 +7,7 @@ export class CreateProblemStatementDto {
   @ApiProperty()
   topic: string;
 
+  @IsString()
   @ApiProperty()
   description: string;
 

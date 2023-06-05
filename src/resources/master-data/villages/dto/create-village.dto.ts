@@ -7,6 +7,7 @@ export class CreateVillageDto {
   @ApiProperty()
   name: string;
 
+  @IsString()
   @ApiProperty()
   description: string;
 
