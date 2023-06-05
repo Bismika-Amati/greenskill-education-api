@@ -220,7 +220,7 @@ model Course {
   id                 String       @id @default(uuid())
   title              String
   description        String?      @db.Text
-  amount             Decimal
+  amount             Float
   photo              String?
   estimateCompleated Int
   createdAt          DateTime     @default(now())

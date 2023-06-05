@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Course } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime';
 
 export class CourseEntity {
   @ApiProperty()
@@ -16,7 +15,7 @@ export class CourseEntity {
   photo?: string;
 
   @ApiProperty()
-  amount: Decimal;
+  amount: number;
 
   @ApiProperty()
   estimateCompleated: number;
