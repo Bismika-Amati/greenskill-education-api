@@ -15,6 +15,8 @@ import { ProblemStatementsModule } from './resources/master-data/problem-stateme
 import { ExistingAlternativesModule } from './resources/master-data/existing-alternatives/existing-alternatives.module';
 import { CoursesModule } from './resources/master-data/courses/courses.module';
 import { SubModulesModule } from './resources/master-data/sub-modules/sub-modules.module';
+import { StorageModule } from './storage/storage.module';
+import { MediaModule } from './resources/media/media.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { SubModulesModule } from './resources/master-data/sub-modules/sub-module
     ExistingAlternativesModule,
     CoursesModule,
     SubModulesModule,
+    StorageModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
