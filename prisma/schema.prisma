@@ -16,7 +16,7 @@ model Role {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
-  User      User[]
+  user      User[]
 }
 
 model Province {
@@ -25,9 +25,9 @@ model Province {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
-  Village   Village[]
-  User      User[]
-  City      City[]
+  village   Village[]
+  user      User[]
+  city      City[]
 }
 
 model City {
@@ -38,9 +38,9 @@ model City {
   updatedAt  DateTime   @updatedAt
   deletedAt  DateTime?
   province   Province   @relation(fields: [provinceId], references: [id])
-  Districts  District[]
-  Village    Village[]
-  User       User[]
+  districts  District[]
+  village    Village[]
+  user       User[]
 }
 
 model District {
@@ -51,9 +51,9 @@ model District {
   updatedAt   DateTime      @updatedAt
   deletedAt   DateTime?
   city        City          @relation(fields: [cityId], references: [id])
-  Village     Village[]
-  User        User[]
-  SubDistrict SubDistrict[]
+  village     Village[]
+  user        User[]
+  subDistrict SubDistrict[]
 }
 
 model SubDistrict {
@@ -64,8 +64,8 @@ model SubDistrict {
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime?
   districts  District  @relation(fields: [districtId], references: [id])
-  Village    Village[]
-  User       User[]
+  village    Village[]
+  user       User[]
 }
 
 model User {
@@ -90,11 +90,11 @@ model User {
   city          City?          @relation(fields: [cityId], references: [id])
   district      District?      @relation(fields: [districtId], references: [id])
   subDistrict   SubDistrict?   @relation(fields: [subDistrictId], references: [id])
-  Village       Village[]
-  UserCourse    UserCourse[]
-  DoneModule    DoneModule[]
-  Forum         Forum[]
-  ForumComment  ForumComment[]
+  village       Village[]
+  userCourse    UserCourse[]
+  doneModule    DoneModule[]
+  forum         Forum[]
+  forumComment  ForumComment[]
 }
 
 model Village {
@@ -117,8 +117,8 @@ model Village {
   city             City               @relation(fields: [cityId], references: [id])
   district         District           @relation(fields: [districtId], references: [id])
   subDistrict      SubDistrict        @relation(fields: [subDistrictId], references: [id])
-  VillagePicture   VillagePicture[]
-  ProblemStatement ProblemStatement[]
+  villagePicture   VillagePicture[]
+  problemStatement ProblemStatement[]
 }
 
 model VillagePicture {
@@ -140,7 +140,7 @@ model ProblemStatement {
   updatedAt           DateTime              @updatedAt
   deletedAt           DateTime?
   village             Village               @relation(fields: [villageId], references: [id])
-  ExistingAlternative ExistingAlternative[]
+  existingAlternative ExistingAlternative[]
 }
 
 model ExistingAlternative {
@@ -164,9 +164,9 @@ model Course {
   createdAt          DateTime     @default(now())
   updatedAt          DateTime     @updatedAt
   deletedAt          DateTime?
-  UserCourse         UserCourse[]
-  SubModule          SubModule[]
-  Forum              Forum[]
+  userCourse         UserCourse[]
+  subModule          SubModule[]
+  forum              Forum[]
 }
 
 model UserCourse {
@@ -195,8 +195,8 @@ model SubModule {
   updatedAt        DateTime           @updatedAt
   deletedAt        DateTime?
   course           Course             @relation(fields: [courseId], references: [id])
-  DoneModule       DoneModule[]
-  ArticleSubModule ArticleSubModule[]
+  doneModule       DoneModule[]
+  articleSubModule ArticleSubModule[]
 }
 
 model ArticleSubModule {
@@ -236,7 +236,7 @@ model Forum {
   user         User           @relation(fields: [userId], references: [id])
   course       Course         @relation(fields: [courseId], references: [id])
   forumType    ForumType      @relation(fields: [forumTypeId], references: [id])
-  ForumComment ForumComment[]
+  dorumComment ForumComment[]
 }
 
 model ForumType {
@@ -245,7 +245,7 @@ model ForumType {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
-  Forum     Forum[]
+  dorum     Forum[]
 }
 
 model ForumComment {

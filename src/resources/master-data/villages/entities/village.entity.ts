@@ -4,6 +4,7 @@ import { CityEntity } from '../../regions/cities/entities';
 import { DistrictEntity } from '../../regions/districts/entities';
 import { SubDistrictEntity } from '../../regions/sub-districts/entities';
 import { UserEntity } from '../../users/entities';
+import { VillagePictureEntity } from '../../village-pictures/entities';
 
 export class VillageEntity {
   @ApiProperty()
@@ -48,20 +49,23 @@ export class VillageEntity {
   @ApiProperty()
   deletedAt: Date;
 
-  @ApiProperty({ type: CityEntity })
+  @ApiProperty()
   province: CityEntity;
 
-  @ApiProperty({ type: CityEntity })
+  @ApiProperty()
   city: CityEntity;
 
-  @ApiProperty({ type: DistrictEntity })
+  @ApiProperty()
   district: DistrictEntity;
 
-  @ApiProperty({ type: SubDistrictEntity })
+  @ApiProperty()
   subDistrict: SubDistrictEntity;
 
-  @ApiProperty({ type: UserEntity })
+  @ApiProperty()
   pic: UserEntity;
+
+  @ApiProperty()
+  villagePicture: VillagePictureEntity;
 
   constructor(partial?: Partial<VillageEntity>) {
     if (!partial) return;

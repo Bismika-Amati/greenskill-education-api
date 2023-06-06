@@ -42,7 +42,6 @@ export class CreateVillageDto {
   address: string;
 
   @IsString()
-  @IsNotEmpty()
   @ApiProperty()
   latlong: string;
 

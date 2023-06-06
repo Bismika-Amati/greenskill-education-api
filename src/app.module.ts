@@ -17,6 +17,7 @@ import { CoursesModule } from './resources/master-data/courses/courses.module';
 import { SubModulesModule } from './resources/master-data/sub-modules/sub-modules.module';
 import { StorageModule } from './storage/storage.module';
 import { MediaModule } from './resources/media/media.module';
+import { VillagePicturesModule } from './resources/master-data/village-pictures/village-pictures.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { MediaModule } from './resources/media/media.module';
     SubModulesModule,
     StorageModule,
     MediaModule,
+    VillagePicturesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

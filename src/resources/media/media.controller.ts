@@ -32,7 +32,7 @@ export class MediaController {
     FileInterceptor('file', {
       limits: {
         files: 1,
-        fileSize: 1024 * 1024,
+        fileSize: 1024 * 1024 * 10,
       },
     }),
   )
@@ -52,7 +52,9 @@ export class MediaController {
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'success',
-      data: `https://storage.googleapis.com/greenskilleducation/${filePath}`,
+      data: {
+        fileName: `https://storage.googleapis.com/greenskilleducation/${filePath}`,
+      },
     });
   }
 
