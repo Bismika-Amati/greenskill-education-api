@@ -52,10 +52,11 @@ export class MediaController {
     return new ResponseEntity({
       statusCode: HttpStatus.OK,
       message: 'success',
-      data: filePath,
+      data: `https://storage.googleapis.com/greenskilleducation/${filePath}`,
     });
   }
 
+  // TODO: fix params get emdia
   @Get(':mediaId')
   async downloadMedia(@Param('mediaId') mediaId: string, @Res() res: Response) {
     let storageFile: StorageFile;
