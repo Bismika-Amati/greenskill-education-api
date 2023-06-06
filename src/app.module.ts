@@ -18,6 +18,7 @@ import { SubModulesModule } from './resources/master-data/sub-modules/sub-module
 import { StorageModule } from './storage/storage.module';
 import { MediaModule } from './resources/media/media.module';
 import { VillagePicturesModule } from './resources/master-data/village-pictures/village-pictures.module';
+import { ArticleSubModulesModule } from './resources/master-data/article-sub-modules/article-sub-modules.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { VillagePicturesModule } from './resources/master-data/village-pictures/
     StorageModule,
     MediaModule,
     VillagePicturesModule,
+    ArticleSubModulesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

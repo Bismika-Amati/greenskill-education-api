@@ -201,6 +201,7 @@ model SubModule {
 
 model ArticleSubModule {
   id          String    @id @default(uuid())
+  number      Int
   title       String
   description String    @db.Text
   picture     String?
