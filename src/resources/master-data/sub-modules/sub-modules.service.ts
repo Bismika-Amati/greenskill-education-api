@@ -44,6 +44,11 @@ export class SubModulesService {
       where: { id },
       include: {
         course: true,
+        articleSubModule: {
+          orderBy: {
+            number: 'asc',
+          },
+        },
       },
     });
   }
