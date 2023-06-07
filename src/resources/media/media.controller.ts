@@ -43,7 +43,7 @@ export class MediaController {
     const filename = `${
       uploadMediaDto.filePlace
     }/${new Date().getTime()}.${file.originalname.split('.').pop()}`;
-    const filePath = `media/${filename}`;
+    const filePath = `/media/${filename}`;
 
     await this.storageService.save(filePath, file.mimetype, file.buffer, [
       { mediaId: filename },
