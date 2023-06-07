@@ -32,6 +32,10 @@ export class UserCoursesService {
           courseId: queryDto.courseId,
         },
         orderBy: queryDto.getOrderBy,
+        include: {
+          user: true,
+          course: true,
+        },
       },
     );
   }

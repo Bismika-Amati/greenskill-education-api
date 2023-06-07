@@ -155,18 +155,30 @@ model ExistingAlternative {
 }
 
 model Course {
-  id                 String       @id @default(uuid())
+  id                 String        @id @default(uuid())
   title              String
-  description        String?      @db.Text
+  description        String?       @db.Text
   amount             Float
   photo              String?
   estimateCompleated Int
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
   deletedAt          DateTime?
   userCourse         UserCourse[]
   subModule          SubModule[]
   forum              Forum[]
+  courseSkill        CourseSkill[]
+}
+
+model CourseSkill {
+  id          String    @id @default(uuid())
+  name        String
+  description String?   @db.Text
+  courseId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  course      Course    @relation(fields: [courseId], references: [id])
 }
 
 model UserCourse {
