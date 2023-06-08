@@ -21,6 +21,7 @@ import { VillagePicturesModule } from './resources/master-data/village-pictures/
 import { ArticleSubModulesModule } from './resources/master-data/article-sub-modules/article-sub-modules.module';
 import { UserCoursesModule } from './resources/master-data/user-courses/user-courses.module';
 import { CourseSkillsModule } from './resources/master-data/course-skills/course-skills.module';
+import { DoneModulesModule } from './resources/master-data/done-modules/done-modules.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { CourseSkillsModule } from './resources/master-data/course-skills/course
     ArticleSubModulesModule,
     UserCoursesModule,
     CourseSkillsModule,
+    DoneModulesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
