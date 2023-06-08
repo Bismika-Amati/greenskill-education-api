@@ -45,6 +45,7 @@ export class VillagesService {
         subDistrict: true,
         pic: true,
         villagePicture: true,
+        problemStatement: true,
       },
     });
   }
