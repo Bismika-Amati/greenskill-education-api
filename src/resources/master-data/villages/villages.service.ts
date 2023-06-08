@@ -31,6 +31,14 @@ export class VillagesService {
           picId: queryDto.picId,
         },
         orderBy: queryDto.getOrderBy,
+        include: {
+          province: true,
+          city: true,
+          district: true,
+          subDistrict: true,
+          pic: true,
+          villagePicture: true,
+        },
       },
     );
   }
