@@ -53,7 +53,7 @@ export class MediaController {
       statusCode: HttpStatus.OK,
       message: 'success',
       data: {
-        fileName: `https://storage.googleapis.com/greenskilleducation${filePath}`,
+        fileName: `https://storage.googleapis.com/greenskilleducation/${filePath}`,
       },
     });
   }
